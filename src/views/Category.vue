@@ -1,13 +1,13 @@
 <template>
-  <Index/>
+  <LiveGames/>
 </template>
 
 <script>
-import Index from "../components/Index";
+import LiveGames from "../components/LiveGames";
 
 export default {
   components: {
-    Index
+    LiveGames
   }
 };
 </script>

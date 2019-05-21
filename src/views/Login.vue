@@ -1,13 +1,13 @@
 <template>
-  <Index/>
+  <Signin/>
 </template>
 
 <script>
-import Index from "../components/Index";
+import Signin from "../components/Signin";
 
 export default {
   components: {
-    Index
+    Signin
   }
 };
 </script>

@@ -1,38 +1,34 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
     <v-content>
-      <HelloWorld/>
+      <router-view/>
+      <BottomNav/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Index from "./components/Index";
+import LiveGames from "./components/LiveGames";
+import Signup from "./components/Signup";
+import PersonContact from "./components/PersonContact";
+import Signin from "./components/Signin";
+import BottomNav from "./components/BottomNav";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    Index,
+    LiveGames,
+    Signup,
+    PersonContact,
+    Signin,
+    BottomNav
   },
-  data () {
+  data() {
     return {
       //
-    }
+    };
   }
-}
+};
 </script>
