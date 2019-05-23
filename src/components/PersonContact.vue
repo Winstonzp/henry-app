@@ -1,30 +1,68 @@
 <template>
-  <v-layout>
-    <v-flex>
-      <v-card height="50" class="dark" flat></v-card>
-      <v-card height="140" class="grey" flat></v-card>
-      <v-card height="35" class="dark" flat></v-card>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-flex xs12>
+          <p class="text-xs-center pt-3">联系方式</p>
+        </v-flex>
+        <v-flex xs12 pt-3>
+          <span class="customer">
+            <i class="fas fa-user-tie"></i>&nbsp;&nbsp;
+            在线客户
+          </span>
+        </v-flex>
+        <v-flex xs12 pt-3>
+          <span class="customer">
+            <i class="fab fa-qq"></i>&nbsp;&nbsp;
+            客服：6182255
+          </span>
+        </v-flex>
+        <v-flex xs12 pt-3>
+          <span class="customer">
+            <i class="fab fa-qq"></i>&nbsp;&nbsp;
+            投诉：350955
+          </span>
+        </v-flex>
+        <v-flex xs12 pt-3>
+          <span class="customer">
+            <i class="fab fa-qq"></i>&nbsp;&nbsp;
+            代理：771282239
+          </span>
+        </v-flex>
+        <v-flex xs12 pt-3>
+          <span class="customer">
+            <i class="fab fa-weixin"></i>
+            &nbsp;
+            微信：wnsr2453
+          </span>
+        </v-flex>
 
-      <v-card class="pt-3">
-        <v-card height="250" class="dark" flat></v-card>
-        <v-card class="pt-3">
-          <v-card height="230" class="red" flat></v-card>
-        </v-card>
+        <v-flex xs12 py-3>
+          <v-btn round color="red" block @click="backToHome">
+            <span style="color:white">返回首页</span>
+          </v-btn>
+        </v-flex>
       </v-card>
-    </v-flex>
+    </v-dialog>
   </v-layout>
 </template>
-
-
 <script>
 export default {
-  data: () => ({})
+  data() {
+    return {
+      dialog: true
+    };
+  },
+  methods: {
+    backToHome() {
+      dialog: false;
+      this.$router.push("/");
+    }
+  }
 };
 </script>
-
 <style>
+.customer {
+  margin-left: 50px;
+}
 </style>
-
-
-
-

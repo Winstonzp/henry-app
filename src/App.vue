@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <v-content>
-      <router-view/>
-      <BottomNav/>
+    <v-content class="orange">
+      <v-container fluid class="pa-0" flat>
+        <router-view/>
+      </v-container>
     </v-content>
+    <BottomNav/>
   </v-app>
 </template>
 
