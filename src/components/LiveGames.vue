@@ -8,24 +8,14 @@
       </v-flex>
     </v-layout>
     <v-layout style="background-color:#916001" row>
-      <!-- <v-flex class="orange" xs3>
-        <v-list-tile
-          class="red"
-          v-for="item in items"
-          :key="item.title"
-          :class="{blue: current==item.title}"
-        >
-          <span @click="default=item">{{ item.title }}</span>
-        </v-list-tile>
-      </v-flex>-->
       <v-flex class="yellow darken-2" xs3>
         <div
           v-for="item in items"
           :key="item.title"
-          :class="{brown: current==item}"
+          :class="{brown: current==item.title}"
           class="myMargin"
         >
-          <div class="leftPadding py-3" @click="current = item">{{item.title}}</div>
+          <div class="leftPadding py-3" @click="current = item.title">{{item.title}}</div>
         </div>
       </v-flex>
       <v-flex xs9>
