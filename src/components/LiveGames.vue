@@ -7,21 +7,41 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout row>
-      <v-flex xs3>
-        <v-list class="orange">
-          <v-list-tile v-for="item in items" :key="item.title">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                <v-divider></v-divider>
-                <a href="#">{{ item.title }}</a>
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+    <v-layout style="background-color:#916001" row>
+      <!-- <v-flex class="orange" xs3>
+        <v-list-tile
+          class="red"
+          v-for="item in items"
+          :key="item.title"
+          :class="{blue: current==item.title}"
+        >
+          <span @click="default=item">{{ item.title }}</span>
+        </v-list-tile>
+      </v-flex>-->
+      <v-flex class="yellow darken-2" xs3>
+        <div
+          v-for="item in items"
+          :key="item.title"
+          :class="{brown: current==item}"
+          class="myMargin"
+        >
+          <div class="leftPadding py-3" @click="current = item">{{item.title}}</div>
+        </div>
       </v-flex>
-      <v-flex xs11>
-        <v-card color="brown" height="700px"></v-card>
+      <v-flex xs9>
+        <v-layout v-for="s in sss" :key="s.title" row>
+          <v-flex class="pl-3" xs6>
+            <v-img width="115px" height="85px" contain :src="s.pic"></v-img>
+          </v-flex>
+          <v-flex width="115px" height="85px" class="pt-2" xs6>
+            <span style="color:orange">{{s.title}}</span>
+            <v-flex class="pt-1">
+              <v-btn round small color="error">
+                <span style="color:white">开始游戏</span>
+              </v-btn>
+            </v-flex>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </div>
@@ -42,8 +62,19 @@ export default {
         { title: "帮助" },
         { title: "关于" }
       ],
-
-      right: null
+      right: null,
+      sss: [
+        { pic: require("@/assets/casino.jpg"), title: "SW电子" },
+        { pic: require("@/assets/casino.jpg"), title: "MG电子" },
+        { pic: require("@/assets/casino.jpg"), title: "XJJ电子" },
+        { pic: require("@/assets/casino.jpg"), title: "NJJ电子" },
+        { pic: require("@/assets/casino.jpg"), title: "XAA电子" },
+        { pic: require("@/assets/casino.jpg"), title: "EG电子" },
+        { pic: require("@/assets/casino.jpg"), title: "VP电子" },
+        { pic: require("@/assets/casino.jpg"), title: "LGD电子" },
+        { pic: require("@/assets/casino.jpg"), title: "PSG电子" }
+      ],
+      current: "电子"
     };
   }
 };
@@ -52,5 +83,14 @@ export default {
 .headerText {
   text-align: center;
   padding-top: 10px;
+}
+.leftPadding {
+  padding-left: 30px;
+  color: white;
+  font-family: "微软雅黑";
+}
+.myMargin {
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template >
   <v-card>
-    <v-bottom-nav :value="true" app color="#F5A314">
+    <v-bottom-nav :value="true" app class="yellow darken-2">
       <v-btn color="#F13525" to="/" flat>
         <span>首页</span>
         <v-icon>home</v-icon>

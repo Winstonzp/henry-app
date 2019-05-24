@@ -1,5 +1,9 @@
 <template>
   <v-layout row justify-center>
+    <v-toolbar dark color="#EFB33A">
+      <v-toolbar-title>客服</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
         <v-flex xs12>
