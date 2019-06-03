@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <v-layout row>
-      <v-flex xs12>
-        <v-card color="#EFB33A" height="45px">
-          <h3 class="headerText">分类</h3>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    <v-layout class="#916001" style="height:100vh" row>
-      <v-flex class="yellow darken-2" xs3>
+  <v-container class="pa-0">
+    <v-flex xs12>
+      <v-card color="#EFB33A" height="45px">
+        <h3 class="headerText">分类</h3>
+      </v-card>
+    </v-flex>
+
+    <v-layout class="#916001" row>
+      <v-flex class="yellow darken-2" style="height:850px" xs3>
         <div
           v-for="item in items"
           :key="item.title"
           :class="{ myRedbrown: current==item.title}"
-          class="myMargin"
+          class="my-2"
         >
           <div class="leftPadding py-3" @click="current = item.title">{{item.title}}</div>
         </div>
@@ -64,7 +63,7 @@
         </v-layout>
       </v-flex>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 <script>
 export default {
@@ -126,10 +125,7 @@ export default {
   color: white;
   font-family: "微软雅黑";
 }
-.myMargin {
-  margin-top: 1px;
-  margin-bottom: 1px;
-}
+
 .myRedbrown {
   background-color: #916001;
 }

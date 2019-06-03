@@ -18,9 +18,13 @@
         <span>客户</span>
         <v-icon>people</v-icon>
       </v-btn>
-      <v-btn color="#F13525" to="/login" flat>
+      <v-btn color="#F13525" to="/login" flat v-show="$store.state.token == null">
         <span>登陆</span>
         <v-icon>lock_open</v-icon>
+      </v-btn>
+      <v-btn color="#F13525" to="/membercenter" flat v-show="$store.state.token != null">
+        <span>会员中心</span>
+        <v-icon>person</v-icon>
       </v-btn>
     </v-bottom-nav>
   </v-card>

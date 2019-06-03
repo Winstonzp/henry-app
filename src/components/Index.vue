@@ -145,6 +145,47 @@
             </v-layout>
           </v-card>
         </v-card>
+        <v-card color="#D68508" class="pt-2">
+          <v-card height="230" class="yellow darken-2" flat>
+            <v-layout row>
+              <v-flex xs10>
+                <p class="layoutText">
+                  精选大促 &nbsp; &nbsp;
+                  各种优惠为您撑腰
+                </p>
+              </v-flex>
+              <v-flex xs2 class="pt-4">
+                <a href>
+                  更多
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex class="px-2" xs6>
+                <v-card width="160" height="163px">
+                  <img src="@/assets/lady.jpg" alt="error">
+                </v-card>
+              </v-flex>
+              <v-flex xs6>
+                <v-layout row>
+                  <v-flex class="pr-2" xs12>
+                    <v-card width="180px" height="77px">
+                      <img src="@/assets/lady2.jpg" alt="error">
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex class="pr-2 pt-2" xs12>
+                    <v-card width="180px" height="77px">
+                      <img src="@/assets/lady3.jpg" alt="error">
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-card>
       </v-card>
     </v-flex>
   </v-layout>

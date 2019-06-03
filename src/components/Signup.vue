@@ -94,7 +94,8 @@ export default {
     backToHome() {
       dialog: false;
       this.$router.push("/");
-    }
+    },
+    register() {}
   }
 };
 </script>
