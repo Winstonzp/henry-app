@@ -38,6 +38,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: () => import("./views/Login.vue")
+    },
+    {
+      path: "/usercenter",
+      name: "usercenter",
+      component: () => import("./components/UserCenter.vue")
     }
   ]
 });

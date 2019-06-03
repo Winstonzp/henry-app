@@ -17,6 +17,7 @@ import Signup from "./components/Signup";
 import PersonContact from "./components/PersonContact";
 import Signin from "./components/Signin";
 import BottomNav from "./components/BottomNav";
+import UserCenter from "./components/UserCenter";
 
 import axios from "axios";
 const qs = require("qs");
@@ -28,6 +29,7 @@ export default {
     Signup,
     PersonContact,
     Signin,
+    UserCenter,
     BottomNav
   },
   data() {

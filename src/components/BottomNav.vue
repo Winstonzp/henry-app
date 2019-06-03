@@ -22,7 +22,7 @@
         <span>登陆</span>
         <v-icon>lock_open</v-icon>
       </v-btn>
-      <v-btn color="#F13525" to="/membercenter" flat v-show="$store.state.token != null">
+      <v-btn color="#F13525" to="/usercenter" flat v-show="$store.state.token != null">
         <span>会员中心</span>
         <v-icon>person</v-icon>
       </v-btn>

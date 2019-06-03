@@ -11,8 +11,8 @@
         <div
           v-for="item in items"
           :key="item.title"
-          :class="{ myRedbrown: current==item.title}"
           class="my-2"
+          :class="{ myRedbrown: current==item.title }"
         >
           <div class="leftPadding py-3" @click="current = item.title">{{item.title}}</div>
         </div>
