@@ -18,7 +18,11 @@ import PersonContact from "./components/PersonContact";
 import Signin from "./components/Signin";
 import BottomNav from "./components/BottomNav";
 import UserCenter from "./components/UserCenter";
-
+import TransferBalance from "./components/TransferBalance";
+import WithdrawArea from "./components/WithdrawArea";
+import PaymentArea from "./components/PaymentArea";
+import UserSetting from "./components/UserSetting";
+import PaymentHistory from "./components/PaymentHistory";
 import axios from "axios";
 const qs = require("qs");
 export default {
@@ -30,6 +34,10 @@ export default {
     PersonContact,
     Signin,
     UserCenter,
+    WithdrawArea,
+    PaymentArea,
+    UserSetting,
+    PaymentHistory,
     BottomNav
   },
   data() {

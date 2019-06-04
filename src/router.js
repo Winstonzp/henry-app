@@ -43,6 +43,31 @@ export default new Router({
       path: "/usercenter",
       name: "usercenter",
       component: () => import("./components/UserCenter.vue")
+    },
+    {
+      path: "/transferbalance",
+      name: "transferbalance",
+      component: () => import("./components/TransferBalance.vue")
+    },
+    {
+      path: "/withdrawarea",
+      name: "withdrawarea",
+      component: () => import("./components/WithdrawArea.vue")
+    },
+    {
+      path: "/paymentarea",
+      name: "paymentarea",
+      component: () => import("./components/PaymentArea.vue")
+    },
+    {
+      path: "/usersetting",
+      name: "usersetting",
+      component: () => import("./components/UserSetting.vue")
+    },
+    {
+      path: "/paymenthistory",
+      name: "paymenthistory",
+      component: () => import("./components/PaymentHistory.vue")
     }
   ]
 });
