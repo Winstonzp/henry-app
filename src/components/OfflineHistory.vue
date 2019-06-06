@@ -5,7 +5,7 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>存款记录</v-toolbar-title>
+        <v-toolbar-title>提款记录</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->
@@ -37,7 +37,7 @@
             solo
             clearable
           ></v-combobox>
-          <v-btn block color="info">Search</v-btn>
+          <v-btn class="align_button" color="info">Search</v-btn>
         </template>
 
         <v-date-picker v-model="dates" locale="zh-cn" multiple no-title scrollable>
@@ -98,6 +98,10 @@
   </v-layout>
 </template>
 <style>
+.align_button {
+  margin-left: 80px;
+  margin-top: 0px;
+}
 </style>
 
 <script>
@@ -215,7 +219,7 @@ export default {
   methods: {
     backToHome() {
       dialog: false;
-      this.$router.push("/usercenter");
+      this.$router.push("/myagent");
     }
   }
 };

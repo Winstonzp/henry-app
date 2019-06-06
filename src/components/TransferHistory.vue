@@ -5,7 +5,7 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>存款记录</v-toolbar-title>
+        <v-toolbar-title>转账记录</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->

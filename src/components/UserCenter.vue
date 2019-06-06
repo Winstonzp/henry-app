@@ -72,44 +72,56 @@
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="#8BEE22">fas fa-file-signature</v-icon>
-              </div>
-              <span style="font-size:12px">提款记录</span>
+              <router-link to="/withdrawhistory">
+                <div>
+                  <v-icon medium color="#8BEE22">fas fa-file-signature</v-icon>
+                </div>
+                <span style="font-size:12px">提款记录</span>
+              </router-link>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="#EA625B">fas fa-file-contract</v-icon>
-              </div>
-              <span style="font-size:12px">转账记录</span>
+              <router-link to="/transferhistory">
+                <div>
+                  <v-icon medium color="#EA625B">fas fa-file-contract</v-icon>
+                </div>
+                <span style="font-size:12px">转账记录</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="#1DE3B0">fas fa-file-alt</v-icon>
-              </div>
-              <span style="font-size:12px">投注记录</span>
+              <router-link to="/bethistory">
+                <div>
+                  <v-icon medium color="#1DE3B0">fas fa-file-alt</v-icon>
+                </div>
+                <span style="font-size:12px">投注记录</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="blue">fas fa-file-signature</v-icon>
-              </div>
-              <span medium style="font-size:12px">资金记录</span>
+              <router-link to="/fundhistory">
+                <div>
+                  <v-icon medium color="blue">fas fa-file-signature</v-icon>
+                </div>
+                <span medium style="font-size:12px">资金记录</span>
+              </router-link>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="#4BEA54">fas fa-user-shield</v-icon>
-              </div>
-              <span style="font-size:12px">安全设置</span>
+              <router-link to="/securitysetting">
+                <div>
+                  <v-icon medium color="#4BEA54">fas fa-user-shield</v-icon>
+                </div>
+                <span style="font-size:12px">安全设置</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="red">refresh</v-icon>
-              </div>
-              <span style="font-size:12px">自助洗码</span>
+              <router-link to="/refreshcode">
+                <div>
+                  <v-icon medium color="red">refresh</v-icon>
+                </div>
+                <span style="font-size:12px">自助洗码</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
               <div>
@@ -120,16 +132,20 @@
           </v-layout>
           <v-layout row>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="blue">credit_card</v-icon>
-              </div>
-              <span style="font-size:12px">银行卡</span>
+              <router-link to="/addbankcard">
+                <div>
+                  <v-icon medium color="blue">credit_card</v-icon>
+                </div>
+                <span style="font-size:12px">银行卡</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="blue">fas fa-users</v-icon>
-              </div>
-              <span style="font-size:12px">我的代理</span>
+              <router-link to="/myagent">
+                <div>
+                  <v-icon medium color="blue">fas fa-users</v-icon>
+                </div>
+                <span style="font-size:12px">我的代理</span>
+              </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
               <div>

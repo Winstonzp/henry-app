@@ -68,6 +68,66 @@ export default new Router({
       path: "/paymenthistory",
       name: "paymenthistory",
       component: () => import("./components/PaymentHistory.vue")
+    },
+    {
+      path: "/withdrawhistory",
+      name: "withdrawhistory",
+      component: () => import("./components/WithdrawHistory.vue")
+    },
+    {
+      path: "/transferhistory",
+      name: "transferhistory",
+      component: () => import("./components/TransferHistory.vue")
+    },
+    {
+      path: "/bethistory",
+      name: "bethistory",
+      component: () => import("./components/BetHistory.vue")
+    },
+    {
+      path: "/fundhistory",
+      name: "fundhistory",
+      component: () => import("./components/FundHistory.vue")
+    },
+    {
+      path: "/securitysetting",
+      name: "securitysetting",
+      component: () => import("./components/SecuritySetting.vue")
+    },
+    {
+      path: "/refreshcode",
+      name: "refreshcode",
+      component: () => import("./components/RefreshCode.vue")
+    },
+    {
+      path: "/myagent",
+      name: "myagent",
+      component: () => import("./components/MyAgent.vue")
+    },
+    {
+      path: "/offlinehistory",
+      name: "offlinehistory",
+      component: () => import("./components/OfflineHistory.vue")
+    },
+    {
+      path: "/livebethistory",
+      name: "livebethistory",
+      component: () => import("./components/LiveBetHistory.vue")
+    },
+    {
+      path: "/commissionhistory",
+      name: "commissionhistory",
+      component: () => import("./components/CommissionHistory.vue")
+    },
+    {
+      path: "/agentinfo",
+      name: "agentinfo",
+      component: () => import("./components/AgentInfo.vue")
+    },
+    {
+      path: "/addbankcard",
+      name: "addbankcard",
+      component: () => import("./components/AddBankCard.vue")
     }
   ]
 });

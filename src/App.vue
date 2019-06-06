@@ -23,6 +23,18 @@ import WithdrawArea from "./components/WithdrawArea";
 import PaymentArea from "./components/PaymentArea";
 import UserSetting from "./components/UserSetting";
 import PaymentHistory from "./components/PaymentHistory";
+import WithdrawHistory from "./components/WithdrawHistory";
+import TransferHistory from "./components/TransferHistory";
+import BetHistory from "./components/BetHistory";
+import FundHistory from "./components/FundHistory";
+import SecuritySetting from "./components/SecuritySetting";
+import RefreshCode from "./components/RefreshCode";
+import MyAgent from "./components/MyAgent";
+import OfflineHistory from "./components/OfflineHistory";
+import LiveBetHistory from "./components/LiveBetHistory";
+import CommissionHistory from "./components/CommissionHistory";
+import AgentInfo from "./components/AgentInfo";
+import AddBankCard from "./components/AddBankCard";
 import axios from "axios";
 const qs = require("qs");
 export default {
@@ -38,6 +50,18 @@ export default {
     PaymentArea,
     UserSetting,
     PaymentHistory,
+    WithdrawHistory,
+    TransferHistory,
+    BetHistory,
+    FundHistory,
+    SecuritySetting,
+    RefreshCode,
+    MyAgent,
+    OfflineHistory,
+    LiveBetHistory,
+    CommissionHistory,
+    AgentInfo,
+    AddBankCard,
     BottomNav
   },
   data() {

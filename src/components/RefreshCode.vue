@@ -5,48 +5,18 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>存款记录</v-toolbar-title>
+        <v-toolbar-title>自动洗码</v-toolbar-title>
       </v-toolbar>
     </v-layout>
-    <!-- Date Picker-->
-    <v-flex xs12 sm6>
-      <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        :return-value.sync="dates"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-combobox
-            class="pt-3"
-            v-model="dates"
-            background-color="white"
-            multiple
-            chips
-            flat
-            label="Multiple picker in menu"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-            solo
-            clearable
-          ></v-combobox>
-          <v-btn block color="info">Search</v-btn>
-        </template>
-
-        <v-date-picker v-model="dates" locale="zh-cn" multiple no-title scrollable>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
-        </v-date-picker>
-      </v-menu>
+    <v-flex xs12 sm12>
+      <v-toolbar color="#FABC28" class="mt-3">
+        <span class="menu_text">可结洗码</span>
+        <v-flex xs12 sm6 md3 class="pl-5 py-2">
+          <v-text-field class="addData" value="0" readonly></v-text-field>
+        </v-flex>
+      </v-toolbar>
     </v-flex>
-    <!-- Date Picker finished-->
+    <v-btn class="align_button" color="info my-3">一键结算</v-btn>
     <v-data-iterator
       :items="items"
       :rows-per-page-items="rowsPerPageItems"
@@ -98,6 +68,10 @@
   </v-layout>
 </template>
 <style>
+.align_button {
+  margin-left: 80px;
+  margin-top: 0px;
+}
 </style>
 
 <script>

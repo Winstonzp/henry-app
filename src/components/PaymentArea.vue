@@ -32,7 +32,6 @@
       :value="true"
       type="info"
     >使用本方式充值，系统赠送1%，最高388元，只需一倍流水即可提款</v-alert>
-
     <v-card class="py-3 mt-5 mx-3 card-rounded" v-show="showManualPay">
       <v-form ref="form" class="px-4">
         <v-flex>

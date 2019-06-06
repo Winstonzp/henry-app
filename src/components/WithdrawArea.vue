@@ -21,7 +21,7 @@
                 label="收款银行卡"
                 required
               ></v-select>
-              <v-btn color="success">
+              <v-btn color="success" @click="linkToBank">
                 <i class="fas fa-plus"></i>添加银行卡
               </v-btn>
             </v-flex>
@@ -78,6 +78,10 @@ export default {
     backToHome() {
       dialog: false;
       this.$router.push("/usercenter");
+    },
+    linkToBank() {
+      dialog: false;
+      this.$router.push("/addbankcard");
     }
   }
 };
