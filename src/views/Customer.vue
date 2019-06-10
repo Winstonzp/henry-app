@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import PersonContact from "../components/PersonContact";
+import PersonContact from "../components/PersonContact.vue";
 
 export default {
   components: {
@@ -11,3 +11,4 @@ export default {
   }
 };
 </script>
+

@@ -12,13 +12,12 @@
 
 <script>
 import BottomNav from "./components/BottomNav";
-import UserCenter from "./components/UserCenter";
+// import UserCenter from "./components/UserCenter";
 import axios from "axios";
 const qs = require("qs");
 export default {
   name: "App",
   components: {
-    UserCenter,
     BottomNav
   },
   data() {

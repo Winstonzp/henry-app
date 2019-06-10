@@ -14,12 +14,6 @@ export default new Router({
       component: Home
     },
     {
-      path: "/about",
-      name: "about",
-
-      component: () => import("./views/About.vue")
-    },
-    {
       path: "/category",
       name: "category",
       component: () => import("./views/Category.vue")
@@ -128,6 +122,21 @@ export default new Router({
       path: "/addbankcard",
       name: "addbankcard",
       component: () => import("./components/AddBankCard.vue")
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: () => import("./components/Signout.vue")
+    },
+    {
+      path: "/manualpayment",
+      name: "manualpayment",
+      component: () => import("./components/ManualPayment.vue")
+    },
+    {
+      path: "/editloginpassword",
+      name: "editloginpassword",
+      component: () => import("./components/EditLoginPassword")
     }
   ]
 });

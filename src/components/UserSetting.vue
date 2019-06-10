@@ -42,6 +42,9 @@
                 required
               ></v-text-field>
             </v-flex>
+            <v-flex xs12 sm6 d-flex>
+              <v-select :items="items" prepend-inner-icon="person" label="性别" solo></v-select>
+            </v-flex>
 
             <v-flex xs12>
               <v-text-field
@@ -78,6 +81,7 @@
 </style>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -85,15 +89,24 @@ export default {
       notifications: false,
       sound: true,
       widgets: false,
-      show1: false
+      show1: false,
+      items: ["男", "女"]
     };
   },
   methods: {
     backToHome() {
       dialog: false;
       this.$router.push("/usercenter");
-    },
-    register() {}
+    }
+    // getuserinfo() {
+    //   axios.get(`${this.$store.state.apiUrl}/account/getUserInfo`).then(res => {
+    //     console.log(res);
+    //     this.store.dispatch("setToken", res.data.result.token);
+    //   });
+    // }
+  },
+  created() {
+    this.getuserinfo();
   }
 };
 </script>

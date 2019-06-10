@@ -23,9 +23,11 @@
       <v-flex xs12 sm12>
         <v-toolbar color="#FABC28">
           <span class="menu_text">登录密码</span>
-          <v-btn class="button_link" icon @click="displayWithdraw">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
+          <router-link to="/editloginpassword">
+            <v-btn class="button_link" icon>
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </router-link>
         </v-toolbar>
       </v-flex>
       <v-flex xs12 sm12>
@@ -77,33 +79,7 @@
 
     <!-- edit withdraw password-->
     <!-- edit login password-->
-    <v-flex v-show="showLogin">
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span class="menu_text">原密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">新密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">确认密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-btn class="align_button success">立即设置</v-btn>
-    </v-flex>
+
     <!-- edit login password-->
     <!-- edit phone number -->
     <v-flex v-show="showPhone">
@@ -137,6 +113,9 @@
     <!-- edit phone number -->
   </v-layout>
 </template>
+
+
+
 <style>
 .button_link {
   padding-left: 270px;
@@ -161,7 +140,11 @@
 </style>
 
 <script>
+import EditLoginPassword from "./EditLoginPassword";
 export default {
+  components: {
+    EditLoginPassword
+  },
   data() {
     return {
       showLogin: false,

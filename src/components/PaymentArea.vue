@@ -45,7 +45,10 @@
           ></v-select>
         </v-flex>
         <v-text-field label="提款金额" type="number" prepend-icon="fas fa-coins" required solo></v-text-field>
-        <v-btn color="success" block>立即提交</v-btn>
+        <!--add button -->
+        <router-link to="/manualpayment">
+          <v-btn color="success" block>立即提交</v-btn>
+        </router-link>
       </v-form>
     </v-card>
     <v-card class="py-3 mt-5 mx-3 card-rounded" v-show="showAliPay">

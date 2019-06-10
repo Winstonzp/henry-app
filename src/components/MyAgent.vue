@@ -69,7 +69,17 @@
 </style>
 
 <script>
+import OfflineHistory from "./OfflineHistory";
+import LiveBetHistory from "./LiveBetHistory";
+import CommissionHistory from "./CommissionHistory";
+import AgentInfo from "./AgentInfo";
 export default {
+  components: {
+    OfflineHistory,
+    LiveBetHistory,
+    CommissionHistory,
+    AgentInfo
+  },
   data() {
     return {};
   },

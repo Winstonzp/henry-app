@@ -12,19 +12,20 @@ export default new Vuex.Store({
     setToken: (state, payload) => {
       state.token = payload;
       localStorage.setItem("token", payload);
-    }
+    },
 
-    // removeToken: state => {
-    //   state.token = null;
-    //   localStorage.removeItem("token");
-    // }
+    removeToken: state => {
+      state.token = null;
+      localStorage.removeItem("token");
+    }
   },
   actions: {
     setToken: (context, payload) => {
       context.commit("setToken", payload);
+    },
+
+    removeToken: context => {
+      context.commit("removeToken");
     }
-    // removeToken: context => {
-    //   context.commit("removeToken");
-    // }
   }
 });

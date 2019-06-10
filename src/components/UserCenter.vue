@@ -148,10 +148,12 @@
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <div>
-                <v-icon medium color="red">power_settings_new</v-icon>
-              </div>
-              <span style="font-size:12px">退出账户</span>
+              <router-link to="/logout">
+                <div>
+                  <v-icon medium color="red">power_settings_new</v-icon>
+                </div>
+                <span style="font-size:12px">退出账户</span>
+              </router-link>
             </v-flex>
           </v-layout>
         </v-card>

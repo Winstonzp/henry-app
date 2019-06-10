@@ -8,74 +8,75 @@
         <v-toolbar-title>快速注册</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <v-card color="#EFB33A" class="pt-3">
-        <v-container fluid>
-          <v-layout wrap>
-            <v-flex xs12 sm6 md4>
-              <v-text-field
-                prepend-inner-icon="exit_to_app"
-                placeholder="推荐码（非必填）"
-                background-color="white"
-                single-line
-                solo
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field
-                prepend-inner-icon="person"
-                placeholder="用户名"
-                background-color="white"
-                single-line
-                solo
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
-              <v-text-field
-                v-model="password"
-                prepend-inner-icon="lock"
-                :append-icon="show1 ? 'visibility' : 'visibility_off'"
-                :rules="[rules.required, rules.min]"
-                :type="show1 ? 'text' : 'password'"
-                name="input-10-1"
-                placeholder="密码"
-                hint="密码必须填 12 个 数字 或 字母"
-                counter
-                @click:append="show1 = !show1"
-                solo
-                single-line
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                prepend-inner-icon="phone_iphone"
-                placeholder="手机号"
-                background-color="white"
-                single-line
-                solo
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                prepend-inner-icon="vpn_lock"
-                placeholder="验证码"
-                background-color="white"
-                single-line
-                solo
-                required
-              ></v-text-field>
-            </v-flex>
-            <v-btn round color="red" block @click="dialog = false">下一步</v-btn>
-          </v-layout>
-        </v-container>
-      </v-card>
+      <v-form ref="form" v-model="valid" class="white pa-2">
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :rules="nameRules"
+          label="用户名"
+          prepend-icon="person"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :counter="12"
+          :rules="passwordRules"
+          :append-icon="show ? 'visibility' : 'visibility_off'"
+          :type="show ? 'text' : 'password'"
+          label="密码"
+          prepend-icon="lock"
+          @click:append="show = !show"
+          required
+        ></v-text-field>
+        <v-text-field v-model="email" :rules="emailRules" label="邮箱" prepend-icon="email" required></v-text-field>
+        <v-text-field
+          v-model="phone"
+          :rules="phoneRules"
+          :counter="11"
+          label="+86 中国"
+          prepend-icon="phone_iphone"
+          type="number"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="code"
+          :rules="codeRules"
+          :counter="4"
+          label="验证码"
+          prepend-icon="verified_user"
+          type="number"
+          required
+        >
+          <img slot="append" :src="imageSource" alt="Code" @click="changeImageCode">
+        </v-text-field>
+        <v-btn
+          :disabled="isDisabled"
+          color="success"
+          block
+          @click="register"
+          :loading="isLoading"
+        >立即注册</v-btn>
+        <v-flex xs12>
+          <v-alert
+            v-model="hasError"
+            :value="true"
+            color="error"
+            icon="warning"
+            outline
+            dismissible
+            error
+          >{{errorMessage}}</v-alert>
+        </v-flex>
+      </v-form>
     </v-dialog>
   </v-layout>
 </template>
 <script>
+import axios from "axios";
+const qs = require("qs");
 export default {
+  name: "Signup",
+  components: {},
   data() {
     return {
       dialog: true,
@@ -83,19 +84,95 @@ export default {
       sound: true,
       widgets: false,
       show1: false,
-      password: "Password",
-      rules: {
-        required: value => !!value || "请输入密码.",
-        min: v => v.length >= 12 || "密码必须填 12 个 数字 或 字母"
-      }
+      errorMessage: "",
+      hasError: false,
+      isLoading: false,
+      valid: true,
+      name: "",
+      nameRules: [
+        v => !!v || "请加入名称",
+        v =>
+          (v && v.toString().length >= 5 && v.toString().length <= 10) ||
+          "请输入5-10位字母或数字"
+      ],
+      email: "",
+      emailRules: [
+        v => !!v || "请加入邮件",
+        v => /.+@.+/.test(v) || "邮件必须有效"
+      ],
+      phone: "",
+      phoneRules: [
+        v => !!v || "请加入电话号码",
+        v => (v && v.toString().length === 11) || "必须是11个号码"
+      ],
+      password: "",
+      passwordRules: [
+        v => !!v || "请加入密码",
+        v =>
+          (v && v.toString().length >= 6 && v.toString().length <= 12) ||
+          "必请输入6-12位数字或字母"
+      ],
+      code: "",
+      codeRules: [
+        v => !!v || "请加入验证码",
+        v => (v && v.length == 4) || "验证码必须是4个字"
+      ],
+      show: false,
+      timestampt: new Date().valueOf()
     };
+  },
+  computed: {
+    imageSource: function() {
+      return (
+        `${this.$store.state.apiUrl}/validateCode?timesp` + this.timestampt
+      );
+    },
+    isDisabled() {
+      if (this.valid === false || this.isLoading === true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   methods: {
     backToHome() {
       dialog: false;
       this.$router.push("/");
     },
-    register() {}
+    changeImageCode() {
+      this.timestampt = new Date().valueOf();
+    },
+    register() {
+      this.changeImageCode();
+      this.isLoading = true;
+      axios
+        .post(
+          `${this.$store.state.apiUrl}/user/register`,
+          qs.stringify({
+            username: this.name,
+            password: this.password,
+            mobile: this.phone,
+            email: this.email,
+            imgcode: this.code
+          })
+        )
+        .then(res => {
+          this.isLoading = false;
+          // console.log(res.data);
+          if (res.data.msg === "注册成功") {
+            this.$store.dispatch("setToken", res.data.result.token);
+            // this.$store.dispatch("setToken");
+          } else {
+            this.hasError = true;
+            this.errorMessage = res.data.msg;
+          }
+        })
+        .catch(err => console.log(err));
+    },
+    created() {
+      this.register();
+    }
   }
 };
 </script>
