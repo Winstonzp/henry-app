@@ -132,7 +132,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <router-link to="/addbankcard">
+              <router-link to="/bankcardlist">
                 <div>
                   <v-icon medium color="blue">credit_card</v-icon>
                 </div>

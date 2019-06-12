@@ -13,6 +13,7 @@
           <v-layout wrap>
             <v-flex xs12 sm6 md4>
               <v-text-field
+                v-model="name"
                 prepend-inner-icon="person"
                 placeholder="请填入真实用户名"
                 background-color="white"
@@ -24,6 +25,7 @@
             </v-flex>
             <v-flex xs12 sm6 md4>
               <v-text-field
+                v-model="mobile"
                 prepend-inner-icon="phone_iphone"
                 placeholder="手机号码"
                 background-color="white"
@@ -34,6 +36,7 @@
             </v-flex>
             <v-flex xs12 sm6 md4>
               <v-text-field
+                v-model="email"
                 prepend-inner-icon="contact_mail"
                 placeholder="邮箱"
                 background-color="white"
@@ -45,7 +48,6 @@
             <v-flex xs12 sm6 d-flex>
               <v-select :items="items" prepend-inner-icon="person" label="性别" solo></v-select>
             </v-flex>
-
             <v-flex xs12>
               <v-text-field
                 prepend-inner-icon="fab fa-weixin"
@@ -82,6 +84,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -90,6 +93,9 @@ export default {
       sound: true,
       widgets: false,
       show1: false,
+      name: "",
+      mobile: "",
+      email: "",
       items: ["男", "女"]
     };
   },
@@ -97,16 +103,28 @@ export default {
     backToHome() {
       dialog: false;
       this.$router.push("/usercenter");
+    },
+    getUserInfo() {
+      axios
+        .get(`${this.$store.state.apiUrl}/account/getUserInfo`, {
+          headers: {
+            "X-Auth-Token": this.$store.state.token
+          }
+        })
+        .then(res => {
+          this.$store.dispatch("setUserInfo", res.data.result);
+
+          (this.name = res.data.result.username),
+            (this.mobile = res.data.result.mobile),
+            (this.email = res.data.result.email);
+          console.log(res);
+        })
+        .catch(err => console.log(err));
     }
-    // getuserinfo() {
-    //   axios.get(`${this.$store.state.apiUrl}/account/getUserInfo`).then(res => {
-    //     console.log(res);
-    //     this.store.dispatch("setToken", res.data.result.token);
-    //   });
-    // }
   },
+
   created() {
-    this.getuserinfo();
+    this.getUserInfo();
   }
 };
 </script>

@@ -15,14 +15,16 @@
         <v-card white>
           <v-form ref="form" v-model="valid" class="pa-2">
             <v-text-field
+              box
               v-model="oldPassword"
               :append-icon="showOld ? 'visibility' : 'visibility_off'"
               :rules="[rules.required]"
               :type="showOld ? 'text' : 'password'"
               label="原登陆密码"
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               @click:append="showOld = !showOld"
               required
+              flat
             ></v-text-field>
 
             <v-text-field
@@ -31,9 +33,11 @@
               :rules="newPasswordRules"
               :type="show ? 'text' : 'password'"
               label="新登陆密码"
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               @click:append="show = !show"
+              box
               required
+              flat
             ></v-text-field>
 
             <v-text-field
@@ -42,9 +46,11 @@
               :rules="newPasswordConfirmationRules"
               :type="showConfirm ? 'text' : 'password'"
               label="确认新密码"
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               @click:append="showConfirm = !showConfirm"
               required
+              box
+              flat
             ></v-text-field>
 
             <v-btn

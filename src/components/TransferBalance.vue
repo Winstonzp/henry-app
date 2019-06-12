@@ -1,102 +1,154 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card color="#916001">
-        <v-toolbar dark color="warning">
-          <v-btn icon dark @click="backToHome">
-            <v-icon>keyboard_arrow_left</v-icon>
-          </v-btn>
-          <v-toolbar-title>账号登录</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <v-container class="dropdown #FBC634">
-          <v-layout>
-            <v-flex>
-              <v-card class="transferUI">
-                <v-overflow-btn
-                  prepend-icon="account_circle"
-                  :items="outgoingItems"
-                  label="转出"
-                  target=".dropdown"
-                  editable
-                ></v-overflow-btn>
-                <v-overflow-btn
-                  prepend-icon="person"
-                  :items="outgoingItems"
-                  label="转出"
-                  target=".dropdown"
-                  editable
-                ></v-overflow-btn>
+  <v-card class="py-4">
+    <v-form ref="form" v-model="valid" class="px-4">
+      <v-flex>
+        <v-select
+          v-model="outgoing"
+          prepend-icon="account_circle"
+          :items="outgoingItems"
+          label="转出"
+          required
+        ></v-select>
+      </v-flex>
+      <v-flex>
+        <v-select
+          v-model="incoming"
+          prepend-icon="account_circle"
+          :items="incomingItems"
+          label="转入"
+          required:items="items"
+        ></v-select>
+      </v-flex>
 
-                <v-text-field
-                  v-model="amount"
-                  :rules="amountRules"
-                  label="金额 "
-                  prepend-icon="fas fa-coins"
-                  type="number"
-                  required
-                ></v-text-field>
+      <v-text-field
+        v-model="amount"
+        :rules="amountRules"
+        label="金额 "
+        prepend-icon="fas fa-coins"
+        type="number"
+        required
+      ></v-text-field>
 
-                <v-btn color="success" block>确定转账</v-btn>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </v-layout>
+      <v-container fluid>
+        <v-layout row>
+          <v-flex xs12>
+            <v-btn
+              :disabled="isDisabled"
+              color="success"
+              :loading="isLoading"
+              block
+              @click.native="transferBalance"
+            >确定转账</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
+    <v-alert
+      v-model="hasAlert"
+      :value="true"
+      type="info"
+      icon="warning"
+      outline
+      dismissible
+    >{{alertMessage}}</v-alert>
+  </v-card>
 </template>
-
-
-<!-- css layout-->
-<style>
-.transferUI {
-  border-radius: 8px;
-  width: 300px;
-  padding: 40px;
-  margin: 0px;
-}
-.dropdown {
-  padding-left: 38px;
-}
-</style>
-
-<!--js-->
 <script>
-export default {
-  // name: "Signin",
-  data() {
-    return {
-      dialog: true,
-      name: "",
-      password: "",
-      outgoingItems: [
-        "主账户(￥0.00)",
-        "新锦江(￥0.00)",
-        "MG(￥0.00)",
-        "新锦江（新版(￥0.00)"
-      ],
-      incomingItems: [
-        "主账户(￥0.00)",
-        "新锦江(￥0.00)",
-        "MG(￥0.00)",
-        "新锦江（新版）(￥0.00)"
-      ],
-      isLoading: false,
-      valid: false,
-      amount: "",
-      amountRules: [v => !!v || "amount is required"],
-      outgoing: "",
+import axios from "axios";
+const qs = require("qs");
 
-      incoming: ""
-    };
+export default {
+  name: "PlatformTransfer",
+  components: {},
+  data: () => ({
+    alertMessage: "",
+    hasAlert: false,
+    outgoingItems: ["主账户", "新锦江", "MG", "新锦江（新版）"],
+    incomingItems: [],
+    isLoading: false,
+    valid: false,
+    amount: "",
+    amountRules: [v => !!v || "amount is required"],
+    outgoing: "",
+
+    incoming: ""
+
+    // rules: {
+    //   required: value => !!value || "Required."
+    // }
+  }),
+  computed: {
+    isDisabled() {
+      if (this.valid === false || this.isLoading === true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    outgoingId() {
+      switch (this.outgoing) {
+        case "主账户":
+          return 0;
+        case "新锦江":
+          return Number(this.$store.state.config.plats[0].id);
+        case "新锦江（新版）":
+          return Number(this.$store.state.config.plats[2].id);
+        case "MG":
+          return Number(this.$store.state.config.plats[1].id);
+        default:
+          return "";
+      }
+    },
+    incomingId() {
+      switch (this.incoming) {
+        case "主账户":
+          return 0;
+        case "新锦江":
+          return Number(this.$store.state.config.plats[0].id);
+        case "新锦江（新版）":
+          return Number(this.$store.state.config.plats[2].id);
+        case "MG":
+          return Number(this.$store.state.config.plats[1].id);
+        default:
+          return "";
+      }
+    }
+  },
+  watch: {
+    outgoing(newValue) {
+      this.incomingItems = this.outgoingItems.filter(item => item != newValue);
+    }
   },
   methods: {
-    backToHome() {
-      dialog: false;
-      this.$router.push("/usercenter");
+    transferBalance() {
+      this.isLoading = true;
+      axios
+        .post(
+          `${this.$store.state.apiUrl}/order/transfer`,
+          qs.stringify({
+            inId: this.incomingId,
+            outId: this.outgoingId,
+            amount: this.amount
+          }),
+          {
+            headers: {
+              "X-Auth-Token": this.$store.state.token
+            }
+          }
+        )
+        .then(res => {
+          this.isLoading = false;
+          if (res.data.msg === "ok") {
+            this.hasAlert = true;
+            this.alertMessage = "成功";
+            // console.log(res.data);
+          } else {
+            this.hasAlert = true;
+            this.alertMessage = res.data.msg;
+          }
+        })
+        .catch(err => console.log(err));
     }
   }
 };
 </script>
-

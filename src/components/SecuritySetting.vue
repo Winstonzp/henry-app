@@ -15,9 +15,11 @@
       <v-flex xs12 sm12>
         <v-toolbar color="#FABC28" class="mt-2">
           <span class="menu_text">提款密码</span>
-          <v-btn class="button_link" icon @click="displayLogin">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
+          <router-link to="/editwithdrawpassword">
+            <v-btn class="button_link" icon>
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </router-link>
         </v-toolbar>
       </v-flex>
       <v-flex xs12 sm12>
@@ -48,39 +50,7 @@
       </v-flex>
     </v-flex>
     <!--  Main Page -->
-    <!-- edit withdraw password-->
-    <v-flex v-show="showWithdraw">
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span class="menu_text">原密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">新密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">确认密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-btn class="align_button success">立即设置</v-btn>
-    </v-flex>
 
-    <!-- edit withdraw password-->
-    <!-- edit login password-->
-
-    <!-- edit login password-->
     <!-- edit phone number -->
     <v-flex v-show="showPhone">
       <v-flex xs12 sm12>
@@ -141,14 +111,14 @@
 
 <script>
 import EditLoginPassword from "./EditLoginPassword";
+import EditWithdrawPassword from "./EditWithdrawPassword";
 export default {
   components: {
-    EditLoginPassword
+    EditLoginPassword,
+    EditWithdrawPassword
   },
   data() {
     return {
-      showLogin: false,
-      showWithdraw: false,
       showMainPage: true,
       showPhone: false
     };
@@ -162,10 +132,7 @@ export default {
       this.showLogin = true;
       this.showMainPage = false;
     },
-    displayWithdraw() {
-      this.showWithdraw = true;
-      this.showMainPage = false;
-    },
+
     displayPhone() {
       this.showPhone = true;
       this.showMainPage = false;

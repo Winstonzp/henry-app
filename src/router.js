@@ -137,6 +137,16 @@ export default new Router({
       path: "/editloginpassword",
       name: "editloginpassword",
       component: () => import("./components/EditLoginPassword")
+    },
+    {
+      path: "/editwithdrawpassword",
+      name: "editwithdrawpassword",
+      component: () => import("./components/EditWithdrawPassword")
+    },
+    {
+      path: "/bankcardlist",
+      name: "bankcardlist",
+      component: () => import("./components/BankCardList")
     }
   ]
 });

@@ -17,6 +17,12 @@ export default new Vuex.Store({
     removeToken: state => {
       state.token = null;
       localStorage.removeItem("token");
+    },
+    setUserInfo: (state, payload) => {
+      state.userInfo = payload;
+    },
+    setBankInfo: (state, payload) => {
+      state.bankInfo = payload;
     }
   },
   actions: {
@@ -26,6 +32,12 @@ export default new Vuex.Store({
 
     removeToken: context => {
       context.commit("removeToken");
+    },
+    setUserInfo: (context, payload) => {
+      context.commit("setUserInfo", payload);
+    },
+    setBankInfo: (context, payload) => {
+      context.commit("setBankInfo", payload);
     }
   }
 });
