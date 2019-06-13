@@ -147,6 +147,11 @@ export default new Router({
       path: "/bankcardlist",
       name: "bankcardlist",
       component: () => import("./components/BankCardList")
+    },
+    {
+      path: "/alipay",
+      name: "alipay",
+      component: () => import("./components/Alipay")
     }
   ]
 });

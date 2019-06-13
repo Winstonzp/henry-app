@@ -12,12 +12,16 @@
         <v-card class="outerTab">
           <v-layout row>
             <v-flex xs6 sm6 text-xs-center>
-              <div class="showBalance">0.00</div>
+              <div class="showBalance">
+                <h3>￥{{mainbalance}}</h3>
+              </div>
               <div>账户余额(元)</div>
             </v-flex>
             <v-flex xs6 sm6 text-xs-center>
-              <div></div>
-              <div class="totalBalance">总资产(元)</div>
+              <div class="showBalance">
+                <h3>￥0.00</h3>
+              </div>
+              <div>总资产(元)</div>
             </v-flex>
           </v-layout>
           <br>
@@ -161,6 +165,47 @@
     </v-layout>
   </v-container>
 </template>
+<script>
+import axios from "axios";
+export default {
+  name: "UserCenter",
+  components: {},
+  data() {
+    return {
+      mainbalance: ""
+    };
+  },
+  methods: {
+    queryBalance(id) {
+      this.isLoading = true;
+      axios
+        .get(
+          `${
+            this.$store.state.apiUrl
+          }/account/getPlatformBalance?platformId=${id}`,
+
+          {
+            headers: {
+              "X-Auth-Token": this.$store.state.token
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.msg === "ok") {
+            if (id === 0) {
+              this.mainbalance = res.data.result.balance;
+            }
+          }
+        });
+    }
+  },
+  created() {
+    this.queryBalance(0);
+  }
+};
+</script>
+
 <style>
 .innerTab {
   background-color: #cda469;
