@@ -31,7 +31,9 @@
       icon="notification_important"
       :value="true"
       type="info"
-    >使用本方式充值，系统赠送1%，最高388元，只需一倍流水即可提款</v-alert>
+    >使用本方式充值，系统赠送{{this.$store.state.depositeInfo.gift_rate}}%，最高{{this.$store.state.depositeInfo.gift_max}}元，只需一倍流水即可提款</v-alert>
+
+    <!--manual pay-->
     <v-card class="py-3 mt-5 mx-3 card-rounded" v-show="showManualPay">
       <v-form ref="form" class="px-4">
         <v-flex>
@@ -44,17 +46,35 @@
             required
           ></v-select>
         </v-flex>
-        <v-text-field label="提款金额" type="number" prepend-icon="fas fa-coins" required solo></v-text-field>
-        <!--add button -->
+        <v-text-field
+          label="提款金额"
+          type="number"
+          prepend-icon="fas fa-coins"
+          v-model="manualAmount"
+          :rules="manualAmountRules"
+          required
+          solo
+        ></v-text-field>
         <router-link to="/manualpayment">
-          <v-btn color="success" block>立即提交</v-btn>
+          <v-btn color="success" :disabled="isDisabled" :loading="isLoading" block>立即提交</v-btn>
         </router-link>
       </v-form>
     </v-card>
+    <!-- Alipay -->
     <v-card class="py-3 mt-5 mx-3 card-rounded" v-show="showAliPay">
       <v-form ref="form" class="px-4">
-        <v-text-field label="提款金额" type="number" prepend-icon="fas fa-coins" required solo></v-text-field>
-        <v-btn color="success" block>立即提交</v-btn>
+        <v-text-field
+          label="提款金额"
+          type="number"
+          v-model="alipayAmount"
+          :rules="alipayAmountRules"
+          prepend-icon="fas fa-coins"
+          required
+          solo
+        ></v-text-field>
+        <router-link to="/alipay">
+          <v-btn color="success" block>立即提交</v-btn>
+        </router-link>
       </v-form>
     </v-card>
   </v-container>
@@ -66,6 +86,7 @@
 </style>
 
 <script>
+import axios from "axios";
 export default {
   name: "PaymentArea",
   data: () => ({
@@ -78,7 +99,10 @@ export default {
       "手机银行转账",
       "ATM转账",
       "柜台转账"
-    ]
+    ],
+    manualAmount: "",
+    alipayAmount: "",
+    isLoading: false
   }),
 
   methods: {
@@ -93,6 +117,57 @@ export default {
     displayAliPay() {
       this.showAliPay = true;
       this.showManualPay = false;
+    },
+    paymentInfo() {
+      axios
+        .get(`${this.$store.state.apiUrl}/account/deposit/paytypes`, {
+          headers: {
+            "X-Auth-Token": this.$store.state.token
+          }
+        })
+        .then(res => {
+          this.$store.dispatch("setDepositeInfo", res.data.result);
+          // (this.startAmount = res.data.result[0].balanceStart),
+          //   (this.endAmount = res.data.result[0].balanceEnd),
+          //   (this.email = res.data.result.email);
+          console.log(res);
+        });
+    }
+  },
+  created() {
+    this.paymentInfo();
+  },
+  computed: {
+    manualAmountRules() {
+      return [
+        v => !!v || "请输入金额",
+        v =>
+          (v &&
+            v >= this.$store.state.depositeInfo[0].balanceStart &&
+            v < this.$store.state.depositeInfo[0].balanceEnd) ||
+          `限额 ${this.$store.state.depositeInfo[0].balanceStart} - ${
+            this.$store.state.depositeInfo[0].balanceEnd
+          }`
+      ];
+    },
+    alipayAmountRules() {
+      return [
+        v => !!v || "请输入金额",
+        v =>
+          (v &&
+            v >= this.$store.state.depositeInfo[1].balanceStart &&
+            v < this.$store.state.depositeInfo[1].balanceEnd) ||
+          `限额 ${this.$store.state.depositeInfo[1].balanceStart} - ${
+            this.$store.state.depositeInfo[1].balanceEnd
+          }`
+      ];
+    },
+    isDisabled() {
+      if (this.valid === false || this.isLoading === true) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };

@@ -23,6 +23,9 @@ export default new Vuex.Store({
     },
     setBankInfo: (state, payload) => {
       state.bankInfo = payload;
+    },
+    setDepositeInfo: (state, payload) => {
+      state.depositeInfo = payload;
     }
   },
   actions: {
@@ -38,6 +41,9 @@ export default new Vuex.Store({
     },
     setBankInfo: (context, payload) => {
       context.commit("setBankInfo", payload);
+    },
+    setDepositeInfo: (context, payload) => {
+      context.commit("setDepositeInfo", payload);
     }
   }
 });
