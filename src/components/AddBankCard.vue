@@ -7,6 +7,7 @@
         label="开户名"
         prepend-icon="account_circle"
         required
+        :disabled="$store.state.userInfo.real_name != null"
       ></v-text-field>
       <v-text-field
         v-model="bankNumber"
@@ -125,15 +126,24 @@ export default {
             (this.bankNumber = ""),
               (this.bankName = ""),
               (this.bankBranch = "");
+            bus.$emit("updateBankInfo");
+            apiMethods.getUserInfo();
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
           }
+
+          // this.getBankInfo();
+          // this.displayBankCard();
         });
+      // .catch(err => console.log(err));
     }
   },
-  created() {
-    this.addBankCard();
+  mounted() {
+    bus.$on("doneSettingUserInfo", () => {
+      this.name = this.$store.state.userInfo.real_name;
+    });
+    this.name = this.$store.state.userInfo.real_name;
   }
 };
 </script>

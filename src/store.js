@@ -10,6 +10,7 @@ export default new Vuex.Store({
     isLogin: false,
     isExipired: false,
     userInfo: "",
+    bankInfo: "",
     qrHtml: "",
     depositeInfo: [
       {

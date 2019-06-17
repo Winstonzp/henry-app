@@ -42,7 +42,6 @@
                     <span>删除</span>
                   </v-btn>
                 </ConfirmationDialog>
-
                 <!-- <v-list-tile-content>Delete</v-list-tile-content>
                 <v-list-tile-content class="align-end">{{ props.item.id }}</v-list-tile-content>-->
               </v-list-tile>
@@ -67,8 +66,7 @@ export default {
     pagination: {
       rowsPerPage: 2
     },
-    isLoading: false,
-    bankId: ""
+    isLoading: false
   }),
   components: {
     ConfirmationDialog
@@ -91,14 +89,11 @@ export default {
         .then(res => {
           this.$store.dispatch("setBankInfo", res.data.result);
           this.isLoading = false;
-          this.getBankInfo();
-          this.isLoading = false;
         });
       // .catch(err => console.log(err));
     },
     deleteBank(bankId) {
       this.isLoading = true;
-
       axios
         .post(
           `${this.$store.state.apiUrl}/user/bankCard/del`,
@@ -112,11 +107,8 @@ export default {
           }
         )
         .then(() => {
-          this.deleteBank();
           this.isLoading = false;
           this.getBankInfo();
-          this.isLoading = false;
-
           //return code 1 when only one bank card is left
         });
       // .catch(err => console.log(err));
@@ -124,6 +116,9 @@ export default {
   },
   created() {
     this.getBankInfo();
+    bus.$on("updateBankInfo", () => {
+      this.getBankInfo();
+    });
   }
 };
 </script>
