@@ -6,7 +6,27 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     apiUrl: "http://47.90.100.229:20000/api",
-    token: null
+    token: null,
+    isLogin: false,
+    qrHtml: "",
+    depositeInfo: [
+      {
+        balanceEnd: 2000000,
+        balanceStart: 100,
+        code: "OFFLINE_BANK",
+        name: "快速入款",
+        gift_rate: 1,
+        gift_max: 388
+      },
+      {
+        balanceEnd: 2999,
+        balanceStart: 1,
+        code: "ONLINE_ALIPAY",
+        name: "支付宝扫码",
+        gift_rate: 1,
+        gift_max: 388
+      }
+    ]
   },
   mutations: {
     setToken: (state, payload) => {
@@ -26,6 +46,9 @@ export default new Vuex.Store({
     },
     setDepositeInfo: (state, payload) => {
       state.depositeInfo = payload;
+    },
+    setQrHtml: (state, payload) => {
+      state.qrHtml = payload;
     }
   },
   actions: {
@@ -44,6 +67,9 @@ export default new Vuex.Store({
     },
     setDepositeInfo: (context, payload) => {
       context.commit("setDepositeInfo", payload);
+    },
+    setQrHtml: (context, payload) => {
+      context.commit("setQrHtml", payload);
     }
   }
 });

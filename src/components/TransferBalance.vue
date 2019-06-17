@@ -18,7 +18,7 @@
             <v-flex>
               <v-select
                 v-model="outgoing"
-                prepend-icon="account_circle"
+                prepend-inner-icon="credit_card"
                 :items="outgoingItems"
                 label="转出"
                 required
@@ -27,7 +27,7 @@
             <v-flex>
               <v-select
                 v-model="incoming"
-                prepend-icon="account_circle"
+                prepend-inner-icon="credit_card"
                 :items="incomingItems"
                 label="转入"
                 required:items="items"
@@ -38,7 +38,7 @@
               v-model="amount"
               :rules="amountRules"
               label="金额 "
-              prepend-icon="fas fa-coins"
+              prepend-inner-icon="fas fa-coins"
               type="number"
               required
             ></v-text-field>
