@@ -48,7 +48,7 @@ export default {
   watch: {
     isLogin: function(toGet) {
       if (toGet) {
-        this.manualInfo();
+        this.getDepositeInfo();
       }
     }
   },

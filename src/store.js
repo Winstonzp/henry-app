@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import { bus } from "@/main";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -8,6 +8,8 @@ export default new Vuex.Store({
     apiUrl: "http://47.90.100.229:20000/api",
     token: null,
     isLogin: false,
+    isExipired: false,
+    userInfo: "",
     qrHtml: "",
     depositeInfo: [
       {
@@ -33,13 +35,25 @@ export default new Vuex.Store({
       state.token = payload;
       localStorage.setItem("token", payload);
     },
-
+    isLoginTrue: state => {
+      state.isLogin = true;
+    },
+    isLoginFalse: state => {
+      state.isLogin = false;
+    },
+    setExipredTrue: state => {
+      state.isExipired = true;
+    },
+    setExipredFalse: state => {
+      state.isExipired = false;
+    },
     removeToken: state => {
       state.token = null;
       localStorage.removeItem("token");
     },
     setUserInfo: (state, payload) => {
       state.userInfo = payload;
+      bus.$emit("doneSettingUserInfo");
     },
     setBankInfo: (state, payload) => {
       state.bankInfo = payload;
@@ -55,7 +69,18 @@ export default new Vuex.Store({
     setToken: (context, payload) => {
       context.commit("setToken", payload);
     },
-
+    isLoginTrue: context => {
+      context.commit("isLoginTrue");
+    },
+    isLoginFalse: context => {
+      context.commit("isLoginFalse");
+    },
+    setExipredTrue: context => {
+      context.commit("setExipredTrue");
+    },
+    setExipredFalse: context => {
+      context.commit("setExipredFalse");
+    },
     removeToken: context => {
       context.commit("removeToken");
     },
