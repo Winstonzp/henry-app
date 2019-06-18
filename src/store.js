@@ -6,13 +6,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     apiUrl: "http://47.90.100.229:20000/api",
-    token: null,
+    token: "",
     isLogin: false,
     isExipired: false,
     userInfo: "",
     bankInfo: "",
     qrHtml: "",
-    balance: "",
+
     // agentInfo: {},
     depositeInfo: [
       {
@@ -66,10 +66,8 @@ export default new Vuex.Store({
     },
     setQrHtml: (state, payload) => {
       state.qrHtml = payload;
-    },
-    setBalance: (state, payload) => {
-      state.balance = payload;
     }
+
     // setAgentInfo: (state, payload) => {
     //   state.agentInfo = payload;
     // }
@@ -104,9 +102,6 @@ export default new Vuex.Store({
     },
     setQrHtml: (context, payload) => {
       context.commit("setQrHtml", payload);
-    },
-    setBalance: (context, payload) => {
-      context.commit("setBalance", payload);
     }
     // setAgentInfo: (context, payload) => {
     //   context.commit("setAgentInfo", payload);

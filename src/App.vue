@@ -38,24 +38,6 @@ export default {
           this.$store.dispatch("setDepositeInfo", res.data.result);
         });
       // .catch(err => console.log(err));
-    },
-    queryBalance(id) {
-      this.isLoading = true;
-      axios
-        .get(
-          `${
-            this.$store.state.apiUrl
-          }/account/getPlatformBalance?platformId=${id}`,
-
-          {
-            headers: {
-              "X-Auth-Token": this.$store.state.token
-            }
-          }
-        )
-        .then(res => {
-          this.$store.dispatch("setBalance", res.data.result);
-        });
     }
   },
   computed: {
@@ -70,12 +52,6 @@ export default {
       }
     }
   },
-  created() {
-    // this.login();
-    // this.getUserInfo();
-    // this.modifyPassword();
-    // this.modifyData();
-    // this.manualInfo();
-  }
+  created() {}
 };
 </script>

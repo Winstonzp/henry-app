@@ -62,6 +62,10 @@ export default {
   components: {},
   data: () => ({
     alertMessage: "",
+    // mainbalance: "",
+    // MG: "",
+    // xjj: "",
+    // njj: "",
     hasAlert: false,
     outgoingItems: ["主账户", "新锦江", "MG", "新锦江（新版）"],
     incomingItems: [],
@@ -148,8 +152,37 @@ export default {
             this.alertMessage = res.data.msg;
           }
         });
-      // .catch(err => console.log(err));
     }
+    // queryBalance(id) {
+    //   this.isLoading = true;
+    //   axios
+    //     .get(
+    //       `${
+    //         this.$store.state.apiUrl
+    //       }/account/getPlatformBalance?platformId=${id}`,
+
+    //       {
+    //         headers: {
+    //           "X-Auth-Token": this.$store.state.token
+    //         }
+    //       }
+    //     )
+    //     .then(res => {
+    //       if (res.data.msg === "ok") {
+    //         if (id === 0) {
+    //           this.mainbalance = res.data.result.balance;
+    //         } else if (id === 31) {
+    //           this.MG = res.data.result.balance;
+    //         } else if (id === 33) {
+    //           this.xjj = res.data.result.balance;
+    //         } else if (id === 35) {
+    //           this.njj = res.data.result.balance;
+    //         }
+    //       }
+    //       console.log(this.njj);
+    //       this.isLoading = false;
+    //     });
+    // }
   }
 };
 </script>

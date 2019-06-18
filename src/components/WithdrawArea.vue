@@ -75,8 +75,6 @@
         </v-flex>
       </v-container>
     </v-form>
-    <!-- <v-alert :value="true" type="info">打码量稽核没有通过，不能申请提款</v-alert>
-    <v-alert :value="true" type="info">您有提款在审核中，请通过后再次申请提款</v-alert>-->
   </v-card>
 </template>
 <script>
@@ -129,6 +127,7 @@ export default {
       return this.$store.state.token;
     },
     showForm() {
+      this.getUserInfo();
       if (
         this.$store.state.userInfo.real_name != null &&
         this.$store.state.userInfo.money_password === "yes" &&
@@ -157,9 +156,9 @@ export default {
           }
         })
         .then(res => {
-          // console.log(res.data);
           this.withdrawInfo = res.data.result;
           this.isLoading = false;
+          console.log(res);
         });
       // .catch(err => console.log(err));
     },
@@ -193,11 +192,23 @@ export default {
           if (res.data.msg === "ok") {
             this.hasAlert = true;
             this.alertMessage = "成功";
-            // console.log(res.data);
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
           }
+          console.log(res.data);
+        });
+      // .catch(err => console.log(err));
+    },
+    getUserInfo() {
+      axios
+        .get(`${this.$store.state.apiUrl}/account/getUserInfo`, {
+          headers: {
+            "X-Auth-Token": this.$store.state.token
+          }
+        })
+        .then(res => {
+          this.$store.dispatch("setUserInfo", res.data.result);
         });
       // .catch(err => console.log(err));
     }

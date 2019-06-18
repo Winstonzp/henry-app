@@ -6,7 +6,7 @@
       :pagination.sync="pagination"
       row
       wrap
-      v-if="bankCards.length>0"
+      v-if="bankCards.length > 0"
     >
       <template v-slot:item="props">
         <v-flex xs12 sm6 md4 lg3>

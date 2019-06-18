@@ -124,6 +124,7 @@ const qs = require("qs");
 export default {
   data: () => ({
     dates: [],
+
     menu: false,
     isLoading: false,
     records: [],
