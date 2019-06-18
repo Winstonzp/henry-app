@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    config: `config`,
     apiUrl: "http://47.90.100.229:20000/api",
     token: null,
     isLogin: false,
@@ -14,6 +13,7 @@ export default new Vuex.Store({
     bankInfo: "",
     qrHtml: "",
     balance: "",
+    // agentInfo: {},
     depositeInfo: [
       {
         balanceEnd: 2000000,
@@ -70,6 +70,9 @@ export default new Vuex.Store({
     setBalance: (state, payload) => {
       state.balance = payload;
     }
+    // setAgentInfo: (state, payload) => {
+    //   state.agentInfo = payload;
+    // }
   },
   actions: {
     setToken: (context, payload) => {
@@ -105,5 +108,8 @@ export default new Vuex.Store({
     setBalance: (context, payload) => {
       context.commit("setBalance", payload);
     }
+    // setAgentInfo: (context, payload) => {
+    //   context.commit("setAgentInfo", payload);
+    // }
   }
 });

@@ -22,7 +22,7 @@
       </v-flex>
       <v-flex xs12 sm12>
         <v-toolbar color="#FABC28">
-          <span class="menu_text">下线资料</span>
+          <span class="menu_text">下线输赢</span>
           <v-btn class="button_link" icon @click="displayLiveInfo">
             <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
           </v-btn>
@@ -70,13 +70,13 @@
 
 <script>
 import OfflineHistory from "./OfflineHistory";
-import LiveBetHistory from "./LiveBetHistory";
+import WinLoseHistory from "./WinLoseHistory";
 import CommissionHistory from "./CommissionHistory";
 import AgentInfo from "./AgentInfo";
 export default {
   components: {
     OfflineHistory,
-    LiveBetHistory,
+    WinLoseHistory,
     CommissionHistory,
     AgentInfo
   },
@@ -93,7 +93,7 @@ export default {
       this.$router.push("/offlinehistory");
     },
     displayLiveInfo() {
-      this.$router.push("/livebethistory");
+      this.$router.push("/winlosehistory");
     },
     displayCommission() {
       this.$router.push("/commissionhistory");

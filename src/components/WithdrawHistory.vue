@@ -31,7 +31,7 @@
             chips
             flat
             label="请选择搜索日期"
-            prepend-icon="event"
+            prepend-inner-icon="event"
             readonly
             v-on="on"
             solo

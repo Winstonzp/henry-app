@@ -77,16 +77,32 @@
           <v-card>
             <v-list dense>
               <v-list-tile>
-                <v-list-tile-content>时间</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.created_at }}</v-list-tile-content>
+                <v-list-tile-content>用户名</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.username }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-content>佣金</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.money }}</v-list-tile-content>
+                <v-list-tile-content>真人输赢</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.win }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-content>备注</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.remark }}</v-list-tile-content>
+                <v-list-tile-content>洗码费</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.xima_money }}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>红利</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.dividend }}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>手续费</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.fee }}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>实际输赢</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.real_win }}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>当前余额</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.money_total }}</v-list-tile-content>
               </v-list-tile>
             </v-list>
           </v-card>
@@ -145,7 +161,7 @@ export default {
       this.isLoading = true;
       axios
         .post(
-          `${this.$store.state.apiUrl}/agent/myCommission`,
+          `${this.$store.state.apiUrl}/agent/reportWin`,
           qs.stringify({
             day: this.dateRange,
             username: this.name,

@@ -104,9 +104,9 @@ export default new Router({
       component: () => import("./components/OfflineHistory.vue")
     },
     {
-      path: "/livebethistory",
-      name: "livebethistory",
-      component: () => import("./components/LiveBetHistory.vue")
+      path: "/winlosehistory",
+      name: "winlosehistory",
+      component: () => import("./components/WinLoseHistory.vue")
     },
     {
       path: "/commissionhistory",

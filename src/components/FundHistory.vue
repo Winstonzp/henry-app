@@ -5,7 +5,7 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>资金记录</v-toolbar-title>
+        <v-toolbar-title>提款记录</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->
@@ -30,192 +30,137 @@
             multiple
             chips
             flat
-            label="Multiple picker in menu"
+            label="请选择搜索日期"
             prepend-icon="event"
             readonly
             v-on="on"
             solo
             clearable
           ></v-combobox>
-          <v-btn block color="info">Search</v-btn>
+          <v-btn
+            class="align_button"
+            @click="getRecords"
+            :disabled="isLoading"
+            :loading="isLoading"
+            color="info"
+          >搜索</v-btn>
         </template>
 
         <v-date-picker v-model="dates" locale="zh-cn" multiple no-title scrollable>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
+          <v-btn flat color="primary" @click="menu = false">取消</v-btn>
+          <v-btn flat color="primary" @click="$refs.menu.save(dates)">确定</v-btn>
         </v-date-picker>
       </v-menu>
     </v-flex>
     <!-- Date Picker finished-->
+
     <v-data-iterator
-      :items="items"
+      :items="records"
       :rows-per-page-items="rowsPerPageItems"
       :pagination.sync="pagination"
       row
       wrap
+      v-if="records.length > 0"
     >
       <template v-slot:item="props">
         <v-flex xs12 sm6 md4 lg3>
           <v-card>
-            <v-card-title>
-              <h4>{{ props.item.name }}</h4>
-            </v-card-title>
-            <v-divider></v-divider>
             <v-list dense>
               <v-list-tile>
-                <v-list-tile-content>Calories:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.calories }}</v-list-tile-content>
+                <v-list-tile-content>时间</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.createTime }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-content>Fat:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.fat }}</v-list-tile-content>
+                <v-list-tile-content>类型</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.type }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-content>Carbs:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.carbs }}</v-list-tile-content>
+                <v-list-tile-content>金额</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.amount }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
-                <v-list-tile-content>Protein:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.protein }}</v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-content>Sodium:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.sodium }}</v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-content>Calcium:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.calcium }}</v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-content>Iron:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.iron }}</v-list-tile-content>
+                <v-list-tile-content>变后余额</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ props.item.aftBalance }}</v-list-tile-content>
               </v-list-tile>
             </v-list>
           </v-card>
         </v-flex>
       </template>
     </v-data-iterator>
+    <v-flex>
+      <v-alert
+        v-model="hasError"
+        :value="true"
+        color="error"
+        icon="warning"
+        outline
+        dismissible
+        error
+      >{{errorMessage}}</v-alert>
+    </v-flex>
+    <v-flex>
+      <v-alert :value="true" type="info" v-if="records.length === 0">无数据</v-alert>
+    </v-flex>
   </v-layout>
 </template>
 <style>
+.align_button {
+  margin-left: 80px;
+  margin-top: 0px;
+}
 </style>
 
 <script>
+import axios from "axios";
+const qs = require("qs");
 export default {
   data: () => ({
     dates: [],
     menu: false,
-    rowsPerPageItems: [4, 8, 12],
+    isLoading: false,
+    records: [],
+    errorMessage: "",
+    hasError: false,
+    rowsPerPageItems: [2, 4, 8, 12],
     pagination: {
       rowsPerPage: 4
-    },
-    items: [
-      {
-        name: "Frozen Yogurt",
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        sodium: 87,
-        calcium: "14%",
-        iron: "1%"
-      },
-      {
-        name: "Ice cream sandwich",
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        sodium: 129,
-        calcium: "8%",
-        iron: "1%"
-      },
-      {
-        name: "Eclair",
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        sodium: 337,
-        calcium: "6%",
-        iron: "7%"
-      },
-      {
-        name: "Cupcake",
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        sodium: 413,
-        calcium: "3%",
-        iron: "8%"
-      },
-      {
-        name: "Gingerbread",
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        sodium: 327,
-        calcium: "7%",
-        iron: "16%"
-      },
-      {
-        name: "Jelly bean",
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        sodium: 50,
-        calcium: "0%",
-        iron: "0%"
-      },
-      {
-        name: "Lollipop",
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        sodium: 38,
-        calcium: "0%",
-        iron: "2%"
-      },
-      {
-        name: "Honeycomb",
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        sodium: 562,
-        calcium: "0%",
-        iron: "45%"
-      },
-      {
-        name: "Donut",
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        sodium: 326,
-        calcium: "2%",
-        iron: "22%"
-      },
-      {
-        name: "KitKat",
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        sodium: 54,
-        calcium: "12%",
-        iron: "6%"
-      }
-    ]
+    }
   }),
   methods: {
     backToHome() {
       dialog: false;
       this.$router.push("/usercenter");
+    },
+    getRecords() {
+      this.isLoading = true;
+      axios
+        .post(
+          `${this.$store.state.apiUrl}/record/money`,
+          qs.stringify({
+            day: this.dateRange
+          }),
+          {
+            headers: {
+              "X-Auth-Token": this.$store.state.token
+            }
+          }
+        )
+        .then(res => {
+          this.isLoading = false;
+          if (res.data.msg === "ok") {
+            this.records = res.data.result;
+          } else {
+            this.hasError = true;
+            this.errorMessage = res.data.msg;
+          }
+          console.log(res);
+        });
+      // .catch(err => console.log(err));
+    }
+  },
+  computed: {
+    dateRange: function() {
+      return `${this.dates[0]} - ${this.dates[1]}`;
     }
   }
 };
