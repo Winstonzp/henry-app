@@ -6,7 +6,7 @@
       </v-card>
       <v-card height="160" class flat>
         <v-carousel hide-delimiters hide-controls height="160" interval="3000">
-          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.pic"></v-carousel-item>
         </v-carousel>
       </v-card>
       <v-card height="35" color="#EFB33A" flat>
@@ -195,22 +195,22 @@ export default {
   data: () => ({
     items: [
       {
-        src: "https://line.xwiht.cn/QUC/imgs/15584354210091234.jpg"
+        pic: "https://line.xwiht.cn/QUC/imgs/15584354210091234.jpg"
       },
       {
-        src: "https://line.xwiht.cn/QUC/imgs/1558437245325猴子.jpg"
+        pic: "https://line.xwiht.cn/QUC/imgs/1558437245325猴子.jpg"
       },
       {
-        src: "https://line.xwiht.cn/QUC/imgs/1558440285885daixm.jpg"
+        pic: "https://line.xwiht.cn/QUC/imgs/1558440285885daixm.jpg"
       },
       {
-        src: "https://line.xwiht.cn/QUC/imgs/1558436265047捕鱼1.jpg"
+        pic: "https://line.xwiht.cn/QUC/imgs/1558436265047捕鱼1.jpg"
       },
       {
-        src: "https://line.xwiht.cn/QUC/imgs/1552732533284首页2453.png"
+        pic: "https://line.xwiht.cn/QUC/imgs/1552732533284首页2453.png"
       },
       {
-        src: "https://line.xwiht.cn/QUC/imgs/1558432826800末端.jpg"
+        pic: "https://line.xwiht.cn/QUC/imgs/1558432826800末端.jpg"
       }
     ]
   })

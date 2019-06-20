@@ -39,6 +39,11 @@ export default new Router({
       component: () => import("./components/UserCenter.vue")
     },
     {
+      path: "/game/:page",
+      name: "game",
+      component: () => import("./components/Game.vue")
+    },
+    {
       path: "/transferbalance",
       name: "transferbalance",
       component: () => import("./components/TransferBalance.vue")
@@ -123,6 +128,7 @@ export default new Router({
       name: "addbankcard",
       component: () => import("./components/AddBankCard.vue")
     },
+
     {
       path: "/logout",
       name: "logout",

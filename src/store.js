@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     apiUrl: "http://47.90.100.229:20000/api",
+    getGameLinkUrl: "https://new.xjj3.com/api",
     token: "",
     isLogin: false,
     isExipired: false,

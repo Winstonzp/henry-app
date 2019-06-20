@@ -36,6 +36,30 @@ export const apiMethods = {
         }
       });
     // .catch(err => console.log(err));
+  },
+  getAgentInfo(token) {
+    axios
+      .get(`${store.state.apiUrl}/agent/getInfo`, {
+        headers: {
+          "X-Auth-Token": token
+        }
+      })
+      .then(res => {
+        store.dispatch("setAgentInfo", res.data.result);
+      });
+    // .catch(err => console.log(err));
+  },
+  getUserInfo() {
+    axios
+      .get(`${store.state.apiUrl}/account/getUserInfo`, {
+        headers: {
+          "X-Auth-Token": store.state.token
+        }
+      })
+      .then(res => {
+        store.dispatch("setUserInfo", res.data.result);
+      });
+    // .catch(err => console.log(err));
   }
 };
 new Vue({
