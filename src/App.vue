@@ -11,8 +11,9 @@
 </template>
 
 <script>
+import { checkTokenMixin } from "@/mixins/checkTokenMixin";
 import BottomNav from "./components/BottomNav";
-// import UserCenter from "./components/UserCenter";
+
 import axios from "axios";
 const qs = require("qs");
 export default {
@@ -25,6 +26,7 @@ export default {
       //
     };
   },
+  mixins: [checkTokenMixin],
   methods: {
     getDepositeInfo() {
       axios
@@ -42,16 +44,25 @@ export default {
   },
   computed: {
     isLogin: function() {
-      return this.$store.state.isLogin;
-    }
-  },
-  watch: {
-    isLogin: function(toGet) {
-      if (toGet) {
-        this.getDepositeInfo();
+      if (this.$store.state.token == null) {
+        return false;
+      }
+      if (this.$store.state.token != null) {
+        return ture;
       }
     }
   },
-  created() {}
+  // watch: {
+  //   isLogin: function(toGet) {
+  //     if (toGet) {
+  //       this.getDepositeInfo();
+  //     }
+  //   }
+  // },
+  created() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+    }
+  }
 };
 </script>

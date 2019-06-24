@@ -116,8 +116,13 @@
 
 <script>
 import axios from "axios";
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 const qs = require("qs");
 export default {
+  components: {
+    TokenExpiredDialog
+  },
   data: () => ({
     dates: [],
     menu: false,
@@ -166,6 +171,13 @@ export default {
     dateRange: function() {
       return `${this.dates[0]} - ${this.dates[1]}`;
     }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>

@@ -5,17 +5,17 @@
       <v-layout row wrap>
         <v-flex xs12>
           <v-card>
-            <v-card-text class="px-0">确定吗 ?</v-card-text>
+            <v-card-text class="px-0">你确定要退出账户吗 ?</v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs6>
           <v-card>
-            <v-btn flat @click.native="show=false">否</v-btn>
+            <v-btn flat @click.native="confirm">确定</v-btn>
           </v-card>
         </v-flex>
         <v-flex xs6>
           <v-card>
-            <v-btn flat @click.native="confirm">是</v-btn>
+            <v-btn flat @click.native="show=false">取消</v-btn>
           </v-card>
         </v-flex>
       </v-layout>

@@ -10,9 +10,13 @@
         <v-icon>desktop_mac</v-icon>
       </v-btn>
 
-      <v-btn class="b1" color="#F13525" to="/register" flat>
+      <v-btn class="b1" color="#F13525" to="/register" flat v-show="$store.state.token == null">
         <span>注册</span>
         <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn class="b1" color="#F13525" to="/paymentarea" flat v-show="$store.state.token != null">
+        <span>存款</span>
+        <v-icon medium>fas fa-piggy-bank</v-icon>
       </v-btn>
       <v-btn color="#F13525" to="/customer" flat>
         <span>客户</span>

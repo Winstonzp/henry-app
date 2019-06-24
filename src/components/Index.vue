@@ -1,7 +1,7 @@
 <template >
   <v-layout>
     <v-flex>
-      <v-card height="50" class="white" flat>
+      <v-card height="50" class="FFC236" flat>
         <img src="@/assets/logo.png" alt="error" class="logoImage">
       </v-card>
       <v-card height="160" class flat>
@@ -15,7 +15,7 @@
         >1,尊敬的客户：您好，大额支付建议您使用银行卡入款，笔笔可享最高1.5%优惠！详情可咨询在线客服哦. 2,特别通告：【电子】【棋牌】【捕鱼】全新返水升级，全网最劲爆的游戏平台尽在澳门威尼斯人。</marquee-text>
       </v-card>
 
-      <v-card class="pt-2" color="#D68508">
+      <v-card class="firstpannel">
         <v-card height="250" class="yellow darken-2" flat>
           <v-layout row>
             <v-flex xs10>
@@ -25,10 +25,10 @@
               </p>
             </v-flex>
             <v-flex xs2 class="pt-4">
-              <a href>
+              <router-link to="/category">
                 更多
                 <i class="fas fa-chevron-right"></i>
-              </a>
+              </router-link>
             </v-flex>
           </v-layout>
           <v-layout class="gameRow" row>
@@ -114,10 +114,10 @@
                 </p>
               </v-flex>
               <v-flex xs2 class="pt-4">
-                <a href>
+                <router-link to="/category">
                   更多
                   <i class="fas fa-chevron-right"></i>
-                </a>
+                </router-link>
               </v-flex>
             </v-layout>
             <v-layout row>
@@ -235,6 +235,9 @@ a:link {
 }
 .gameRow {
   padding-left: 16px;
+}
+.firstpannel {
+  background-image: linear-gradient(to right, red, white);
 }
 </style>
 

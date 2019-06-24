@@ -3,9 +3,9 @@
     <v-layout row>
       <v-toolbar dark color="#EFB33A">
         <v-btn icon dark @click="backToHome">
-          <v-icon>close</v-icon>
+          <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>快速注册</v-toolbar-title>
+        <v-toolbar-title>存款专区</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-layout>
@@ -35,12 +35,14 @@
 <script>
 import Alipay from "./Alipay.vue";
 import ManualPayment from "./ManualPayment.vue";
-
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 export default {
   name: "PaymentArea",
   components: {
     Alipay,
-    ManualPayment
+    ManualPayment,
+    TokenExpiredDialog
   },
   data: () => ({
     showNormalPay: true,
@@ -62,7 +64,14 @@ export default {
       this.showNormalPay = false;
       this.showTable = false;
     }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>
 

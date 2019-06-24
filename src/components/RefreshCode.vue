@@ -4,7 +4,7 @@
       <v-btn icon dark @click="backToHome">
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
-      <v-toolbar-title>提款记录</v-toolbar-title>
+      <v-toolbar-title>自助洗码</v-toolbar-title>
     </v-toolbar>
     <v-card-title>
       <h4 style="color:blue">可结洗码</h4>

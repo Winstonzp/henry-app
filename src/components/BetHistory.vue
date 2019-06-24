@@ -5,7 +5,7 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>提款记录</v-toolbar-title>
+        <v-toolbar-title>资金记录</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->
@@ -125,9 +125,14 @@
 </style>
 
 <script>
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "./TokenExpiredDialog";
 import axios from "axios";
 const qs = require("qs");
 export default {
+  components: {
+    TokenExpiredDialog
+  },
   data: () => ({
     dates: [],
     menu: false,
@@ -193,6 +198,13 @@ export default {
           return "";
       }
     }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>

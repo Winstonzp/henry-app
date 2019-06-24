@@ -21,7 +21,12 @@ export default new Router({
     {
       path: "/register",
       name: "register",
-      component: () => import("./views/Register.vue")
+      component: () => import("./components/Signup.vue")
+    },
+    {
+      path: "/tokenexpired",
+      name: "tokenexpired",
+      component: () => import("./components/TokenExpiredDialog.vue")
     },
     {
       path: "/customer",
@@ -42,6 +47,11 @@ export default new Router({
       path: "/game/:page",
       name: "game",
       component: () => import("./components/Game.vue")
+    },
+    {
+      path: "/livegame",
+      name: "livegame",
+      component: () => import("./components/Livegame.vue")
     },
     {
       path: "/transferbalance",
@@ -130,11 +140,6 @@ export default new Router({
     },
 
     {
-      path: "/logout",
-      name: "logout",
-      component: () => import("./components/Signout.vue")
-    },
-    {
       path: "/manualpayment",
       name: "manualpayment",
       component: () => import("./components/ManualPayment.vue")
@@ -158,6 +163,11 @@ export default new Router({
       path: "/alipay",
       name: "alipay",
       component: () => import("./components/Alipay")
+    },
+    {
+      path: "/querybalance",
+      name: "querybalance",
+      component: () => import("./components/QueryBalance")
     }
   ]
 });

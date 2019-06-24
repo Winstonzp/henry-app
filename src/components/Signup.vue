@@ -1,75 +1,83 @@
 <template>
-  <v-layout row justify-center>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-toolbar dark color="#EFB33A">
-        <v-btn icon dark @click="backToHome">
-          <v-icon>close</v-icon>
-        </v-btn>
-        <v-toolbar-title>快速注册</v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-      <v-form ref="form" v-model="valid" class="white pa-2">
-        <v-text-field
-          v-model="name"
-          :counter="10"
-          :rules="nameRules"
-          label="用户名"
-          prepend-icon="person"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          :counter="12"
-          :rules="passwordRules"
-          :append-icon="show ? 'visibility' : 'visibility_off'"
-          :type="show ? 'text' : 'password'"
-          label="密码"
-          prepend-icon="lock"
-          @click:append="show = !show"
-          required
-        ></v-text-field>
-        <v-text-field v-model="email" :rules="emailRules" label="邮箱" prepend-icon="email" required></v-text-field>
-        <v-text-field
-          v-model="phone"
-          :rules="phoneRules"
-          :counter="11"
-          label="+86 中国"
-          prepend-icon="phone_iphone"
-          type="number"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="code"
-          :rules="codeRules"
-          :counter="4"
-          label="验证码"
-          prepend-icon="verified_user"
-          type="number"
-          required
-        >
-          <img slot="append" :src="imageSource" alt="Code" @click="changeImageCode">
-        </v-text-field>
-        <v-btn
-          :disabled="isDisabled"
-          color="success"
-          block
-          @click="register"
-          :loading="isLoading"
-        >立即注册</v-btn>
-        <v-flex xs12>
-          <v-alert
-            v-model="hasError"
-            :value="true"
-            color="error"
-            icon="warning"
-            outline
-            dismissible
-            error
-          >{{errorMessage}}</v-alert>
-        </v-flex>
-      </v-form>
-    </v-dialog>
-  </v-layout>
+  <v-container>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-toolbar dark color="#FAC330" height="45px">
+          <v-btn icon dark @click="backToHome">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>快速注册</v-toolbar-title>
+        </v-toolbar>
+        <v-form ref="form" v-model="valid" class="white mt-1 pa-2">
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="用户名"
+            prepend-inner-icon="person"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :counter="12"
+            :rules="passwordRules"
+            :append-icon="show ? 'visibility' : 'visibility_off'"
+            :type="show ? 'text' : 'password'"
+            label="密码"
+            prepend-inner-icon="lock"
+            @click:append="show = !show"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="邮箱"
+            prepend-inner-icon="email"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="phone"
+            :rules="phoneRules"
+            :counter="11"
+            label="+86 中国"
+            prepend-inner-icon="phone_iphone"
+            type="number"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="code"
+            :rules="codeRules"
+            :counter="4"
+            label="验证码"
+            prepend-inner-icon="message"
+            type="number"
+            required
+          >
+            <img slot="append" :src="imageSource" alt="Code" @click="changeImageCode">
+          </v-text-field>
+
+          <v-btn
+            :disabled="isDisabled"
+            color="success"
+            block
+            @click="register"
+            :loading="isLoading"
+          >立即注册</v-btn>
+          <v-flex xs12>
+            <v-alert
+              v-model="hasError"
+              :value="true"
+              color="error"
+              icon="warning"
+              outline
+              dismissible
+              error
+            >{{errorMessage}}</v-alert>
+          </v-flex>
+        </v-form>
+      </v-dialog>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import axios from "axios";
@@ -159,19 +167,17 @@ export default {
         )
         .then(res => {
           this.isLoading = false;
-          // console.log(res.data);
-          if (res.data.msg === "注册成功") {
+          console.log(res.data);
+
+          if (res.data.code == 0) {
             this.$store.dispatch("setToken", res.data.result.token);
-            // this.$store.dispatch("setToken");
-          } else {
+            this.$router.push("/");
+          }
+          if (res.data.code == 1) {
             this.hasError = true;
             this.errorMessage = res.data.msg;
           }
-        })
-        .catch(err => console.log(err));
-    },
-    created() {
-      this.register();
+        });
     }
   }
 };

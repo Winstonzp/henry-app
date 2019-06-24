@@ -89,6 +89,8 @@
 </template>
 <script>
 import ConfirmationDialog from "./ConfirmationDialog.vue";
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "./TokenExpiredDialog";
 import axios from "axios";
 import { constants } from "crypto";
 const qs = require("qs");
@@ -96,7 +98,8 @@ const qs = require("qs");
 export default {
   name: "ManualPayment",
   components: {
-    ConfirmationDialog
+    ConfirmationDialog,
+    TokenExpiredDialog
   },
   data: () => ({
     alertMessage: "",
@@ -189,7 +192,13 @@ export default {
       // .catch(err => console.log(err));
     }
   },
-  created() {}
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>
 

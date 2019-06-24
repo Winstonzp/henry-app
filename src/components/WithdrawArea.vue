@@ -1,89 +1,104 @@
 <template>
-  <v-card class="py-4">
-    <v-alert :value="$store.state.userInfo.real_name === null" type="info">
-      提款金额需要真实姓名
-      <v-btn block @click="redirectEditUserInfo">返回到设置真实姓名</v-btn>
-    </v-alert>
-    <v-alert :value="$store.state.userInfo.money_password === 'no'" type="info">
-      提款金额需要提款密码
-      <v-btn block @click="redirectEditWithdrawPassword">返回到设置提款密码</v-btn>
-    </v-alert>
-    <v-alert :value="withdrawInfo.bankCardList.length < 1" type="info">
-      提款金额需要银行卡
-      <v-btn block @click="redirectAddBankCard">返回到添加银行卡</v-btn>
-    </v-alert>
-    <v-alert :value="withdrawInfo.need_xima != 0" type="info">剩余打码量需要为 0</v-alert>
-    <v-alert :value="withdrawInfo.has_drawing != 0" type="info">提款在审核中，请通过后再次申请提款</v-alert>
-
-    <v-form ref="form" v-model="valid" class="px-4" v-if="showForm">
-      <v-flex>
-        <v-select
-          v-model="bankId"
-          prepend-icon="credit_card"
-          :items="withdrawInfo.bankCardList"
-          :rules="bankRules"
-          item-text="cardNumber"
-          item-value="id"
-          label="收款银行卡"
-          required
-        ></v-select>
-        <v-btn color="success" @click.native="redirectAddBankCard">
-          <i class="fas fa-plus"></i>添加银行卡
+  <v-container class="pa-0">
+    <v-flex>
+      <v-toolbar dark color="warning">
+        <v-btn icon dark @click="backToHome">
+          <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-      </v-flex>
-      <v-text-field
-        v-model="amount"
-        :rules="amountRules"
-        label="提款金额"
-        type="number"
-        prepend-icon="fas fa-coins"
-        required
-      ></v-text-field>
+        <v-toolbar-title>提款专区</v-toolbar-title>
+      </v-toolbar>
+    </v-flex>
 
-      <v-text-field
-        v-model="password"
-        :append-icon="show ? 'visibility' : 'visibility_off'"
-        :rules="[rules.required]"
-        :type="show ? 'text' : 'password'"
-        label="取款密码"
-        prepend-icon="lock"
-        @click:append="show = !show"
-        required
-      ></v-text-field>
+    <v-flex xs12 sm12>
+      <v-card class="py-4">
+        <v-alert :value="$store.state.userInfo.real_name === null" type="info">
+          提款金额需要真实姓名
+          <v-btn block @click="redirectEditUserInfo">返回到设置真实姓名</v-btn>
+        </v-alert>
+        <v-alert :value="$store.state.userInfo.money_password === 'no'" type="info">
+          提款金额需要提款密码
+          <v-btn block @click="redirectEditWithdrawPassword">返回到设置提款密码</v-btn>
+        </v-alert>
+        <v-alert :value="withdrawInfo.bankCardList.length < 1" type="info">
+          提款金额需要银行卡
+          <v-btn block @click="redirectAddBankCard">返回到添加银行卡</v-btn>
+        </v-alert>
+        <v-alert :value="withdrawInfo.need_xima != 0" type="info">剩余打码量需要为 0</v-alert>
+        <v-alert :value="withdrawInfo.has_drawing != 0" type="info">提款在审核中，请通过后再次申请提款</v-alert>
 
-      <v-container fluid>
-        <v-layout row>
-          <v-flex xs12>
-            <v-btn
-              :disabled="isDisabled"
-              color="success"
-              :loading="isLoading"
-              block
-              @click.native="withdraw"
-            >立即提交</v-btn>
+        <v-form ref="form" v-model="valid" class="px-4" v-if="showForm">
+          <v-flex>
+            <v-select
+              v-model="bankId"
+              prepend-icon="credit_card"
+              :items="withdrawInfo.bankCardList"
+              :rules="bankRules"
+              item-text="cardNumber"
+              item-value="id"
+              label="收款银行卡"
+              required
+            ></v-select>
+            <v-btn color="success" @click.native="redirectAddBankCard">
+              <i class="fas fa-plus"></i>添加银行卡
+            </v-btn>
           </v-flex>
-        </v-layout>
-        <v-flex xs12>
-          <v-alert
-            v-model="hasAlert"
-            :value="true"
-            type="info"
-            icon="warning"
-            outline
-            dismissible
-          >{{alertMessage}}</v-alert>
-        </v-flex>
-      </v-container>
-    </v-form>
-  </v-card>
+          <v-text-field
+            v-model="amount"
+            :rules="amountRules"
+            label="提款金额"
+            type="number"
+            prepend-icon="fas fa-coins"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-model="password"
+            :append-icon="show ? 'visibility' : 'visibility_off'"
+            :rules="[rules.required]"
+            :type="show ? 'text' : 'password'"
+            label="取款密码"
+            prepend-icon="lock"
+            @click:append="show = !show"
+            required
+          ></v-text-field>
+
+          <v-container fluid>
+            <v-layout row>
+              <v-flex xs12>
+                <v-btn
+                  :disabled="isDisabled"
+                  color="success"
+                  :loading="isLoading"
+                  block
+                  @click.native="withdraw"
+                >立即提交</v-btn>
+              </v-flex>
+            </v-layout>
+            <v-flex xs12>
+              <v-alert
+                v-model="hasAlert"
+                :value="true"
+                type="info"
+                icon="warning"
+                outline
+                dismissible
+              >{{alertMessage}}</v-alert>
+            </v-flex>
+          </v-container>
+        </v-form>
+      </v-card>
+    </v-flex>
+  </v-container>
 </template>
 <script>
 import axios from "axios";
 const qs = require("qs");
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 
 export default {
   name: "WithdrawArea",
-  components: {},
+  components: { TokenExpiredDialog },
   data: () => ({
     alertMessage: "",
     hasAlert: false,
@@ -147,6 +162,10 @@ export default {
     }
   },
   methods: {
+    backToHome() {
+      dialog: false;
+      this.$router.push("/usercenter");
+    },
     getWithdrawInfo(token) {
       this.isLoading = true;
       axios
@@ -218,6 +237,12 @@ export default {
       this.getWithdrawInfo(this.$store.state.token);
       // console.log(this.$store.state.token)
     }
-  }
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+
+  mixins: [checkTokenMixin]
 };
 </script>

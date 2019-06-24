@@ -1,5 +1,11 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container class="pa-0" fluid grid-list-md>
+    <v-toolbar dark color="warning">
+      <v-btn icon dark @click="backToHome">
+        <v-icon>keyboard_arrow_left</v-icon>
+      </v-btn>
+      <v-toolbar-title>银行卡信息</v-toolbar-title>
+    </v-toolbar>
     <v-data-iterator
       :items="bankCards"
       :rows-per-page-items="rowsPerPageItems"
@@ -78,6 +84,10 @@ export default {
     }
   },
   methods: {
+    backToHome() {
+      dialog: false;
+      this.$router.push("/usercenter");
+    },
     getBankInfo() {
       this.isLoading = true;
       axios

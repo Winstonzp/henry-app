@@ -125,7 +125,7 @@ export default {
   methods: {
     backToHome() {
       dialog: false;
-      this.$router.push("/");
+      this.$router.push("/securitysetting");
     },
     UpdateLoginPassword() {
       this.isLoading = true;

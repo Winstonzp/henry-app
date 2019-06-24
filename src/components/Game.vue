@@ -44,9 +44,9 @@
             <!-- <span class="game_name">{{game.name}}</span> -->
             <v-img :src="game.img_path" widht="50px" height="80px" contain class="grey darken-4"></v-img>
             <v-btn small round color="orange" v-if="isLogin" @click.native="goToGame(game.url)">进路游戏</v-btn>
-            <LoginDialog v-if="!isLogin" class="d-flex">
+            <Signin v-if="!isLogin" class="d-flex">
               <v-btn color="grey">进路游戏</v-btn>
-            </LoginDialog>
+            </Signin>
             <!-- <a href="#" v-if="!isLogin">
               <v-img :src="game.img_path" height="150" contain class="grey darken-4 my-1"></v-img>
             </a>-->
@@ -59,17 +59,15 @@
         <v-btn loading class="henry-ml" flat></v-btn>
       </v-dialog>
     </v-layout>
-    <TokenExpiredDialog/>
   </v-container>
 </template>
 
 <script>
-import { apiMethods } from "@/main";
 import axios from "axios";
 const qs = require("qs");
-
 import Signin from "../components/Signin.vue";
-import TokenExpiredDialog from "../components/TokenExpiredDialog.vue";
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 
 export default {
   name: "Game",
@@ -84,9 +82,15 @@ export default {
       showDialog: false
     };
   },
+  mixins: [checkTokenMixin],
   computed: {
     isLogin: function() {
-      return this.$store.state.isLogin;
+      if (this.$store.state.token == null) {
+        return false;
+      }
+      if (this.$store.state.token != null) {
+        return true;
+      }
     }
   },
   watch: {
@@ -95,6 +99,9 @@ export default {
         this.getGames(this.$route.params.page);
       }
     }
+  },
+  created() {
+    this.getGames(1);
   },
   methods: {
     backToHome() {
@@ -127,7 +134,8 @@ export default {
           console.log(res.data.result.list);
           this.games = res.data.result.list;
           this.showDialog = false;
-          if (this.$store.state.isLogin) {
+
+          if (this.isLogin) {
             this.getGameUrl(this.games);
           }
         });
@@ -160,13 +168,9 @@ export default {
     }
   },
   mounted() {
-    this.getGames(this.$route.params.page);
     if (localStorage.getItem("token") != null) {
-      if (localStorage.getItem("token").length > 10) {
-        this.$store.dispatch("setToken", localStorage.getItem("token"));
-        //check login status api should be applied here
-        apiMethods.checkToken();
-      }
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
     }
   }
 };

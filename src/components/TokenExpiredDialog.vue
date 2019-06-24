@@ -1,6 +1,6 @@
 <template>
   <div class="text-xs-center">
-    <v-dialog v-model="$store.state.isExipired" width="500" persistent>
+    <v-dialog v-model="display" width="500" persistent>
       <v-card dark>
         <v-card-text>登陆已过期，请重新登陆</v-card-text>
         <v-divider></v-divider>
@@ -16,13 +16,12 @@
 export default {
   data() {
     return {
-      // dialog: false
+      display: true
     };
   },
   methods: {
     closeDialog() {
       this.$router.push("/");
-      this.$store.dispatch("setExipredFalse");
     }
   }
 };

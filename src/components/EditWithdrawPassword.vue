@@ -1,61 +1,77 @@
 <template>
-  <v-card class="py-4">
-    <v-form ref="form" class="px-4" v-model="valid">
-      <v-text-field
-        v-model="bankOldPassword"
-        :append-icon="showOldPassword ? 'visibility' : 'visibility_off'"
-        :rules="oldPasswordRules"
-        label="原取款密码"
-        :type="showOldPassword ? 'text' : 'password'"
-        prepend-icon="fas fa-unlock"
-        @click:append="showOldPassword = !showOldPassword"
-        required
-        v-if="$store.state.userInfo.money_password === 'yes'"
-      ></v-text-field>
-      <v-text-field
-        v-model="bankNewPassword"
-        :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-        :rules="newPasswordRules"
-        label="新取款密码"
-        :type="showPassword ? 'text' : 'password'"
-        prepend-icon="fas fa-unlock"
-        @click:append="showPassword = !showPassword"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="confirmBankNewPassword"
-        :append-icon="showConfirmPassword ? 'visibility' : 'visibility_off'"
-        :rules="newPasswordConfirmationRules"
-        label="确认新密码"
-        :type="showConfirmPassword ? 'text' : 'password'"
-        prepend-icon="fas fa-unlock"
-        @click:append="showConfirmPassword = !showConfirmPassword"
-        required
-      ></v-text-field>
+  <v-container class="pa-0">
+    <v-layout>
+      <v-flex xs12 sm12>
+        <v-toolbar color="warning">
+          <v-btn icon @click="backToHome">
+            <v-icon>keyboard_arrow_left</v-icon>
+          </v-btn>
+          <v-toolbar-title>修改提款密码</v-toolbar-title>
+        </v-toolbar>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-flex>
+        <v-card class="py-4">
+          <v-form ref="form" class="px-4" v-model="valid">
+            <v-text-field
+              v-model="bankOldPassword"
+              :append-icon="showOldPassword ? 'visibility' : 'visibility_off'"
+              :rules="oldPasswordRules"
+              label="原取款密码"
+              :type="showOldPassword ? 'text' : 'password'"
+              prepend-icon="fas fa-unlock"
+              @click:append="showOldPassword = !showOldPassword"
+              required
+              v-if="$store.state.userInfo.money_password === 'yes'"
+            ></v-text-field>
+            <v-text-field
+              v-model="bankNewPassword"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :rules="newPasswordRules"
+              label="新取款密码"
+              :type="showPassword ? 'text' : 'password'"
+              prepend-icon="fas fa-unlock"
+              @click:append="showPassword = !showPassword"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="confirmBankNewPassword"
+              :append-icon="showConfirmPassword ? 'visibility' : 'visibility_off'"
+              :rules="newPasswordConfirmationRules"
+              label="确认新密码"
+              :type="showConfirmPassword ? 'text' : 'password'"
+              prepend-icon="fas fa-unlock"
+              @click:append="showConfirmPassword = !showConfirmPassword"
+              required
+            ></v-text-field>
 
-      <v-container fluid>
-        <v-layout row>
-          <v-flex xs12>
-            <v-btn
-              :disabled="isDisabled"
-              color="success"
-              :loading="isLoading"
-              block
-              @click.native="updateWithdrawPassword"
-            >立即提交</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
-    <v-alert
-      v-model="hasAlert"
-      :value="true"
-      icon="warning"
-      outline
-      dismissible
-      type="info"
-    >{{alertMessage}}</v-alert>
-  </v-card>
+            <v-container fluid>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-btn
+                    :disabled="isDisabled"
+                    color="success"
+                    :loading="isLoading"
+                    block
+                    @click.native="updateWithdrawPassword"
+                  >立即提交</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
+          <v-alert
+            v-model="hasAlert"
+            :value="true"
+            icon="warning"
+            outline
+            dismissible
+            type="info"
+          >{{alertMessage}}</v-alert>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import axios from "axios";
@@ -105,6 +121,10 @@ export default {
     }
   },
   methods: {
+    backToHome() {
+      dialog: false;
+      this.$router.push("/securitysetting");
+    },
     updateWithdrawPassword() {
       this.isLoading = true;
       axios

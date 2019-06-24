@@ -1,65 +1,82 @@
 <template>
-  <v-card class="py-4">
-    <v-form ref="form" v-model="valid" class="px-4">
-      <v-flex>
-        <v-select
-          v-model="outgoing"
-          prepend-icon="account_circle"
-          :items="outgoingItems"
-          label="转出"
+  <v-container class="pa-0">
+    <v-toolbar dark color="warning">
+      <v-btn icon dark @click="backToHome">
+        <v-icon>keyboard_arrow_left</v-icon>
+      </v-btn>
+      <v-toolbar-title>平台互转</v-toolbar-title>
+    </v-toolbar>
+    <v-card class="py-4">
+      <v-form ref="form" v-model="valid" class="px-4">
+        <v-flex>
+          <v-select
+            v-model="outgoing"
+            prepend-inner-icon="credit_card"
+            :items="outgoingItems"
+            label="转出"
+            required
+            height="10px"
+            outline
+          ></v-select>
+        </v-flex>
+        <v-flex>
+          <v-select
+            v-model="incoming"
+            prepend-inner-icon="credit_card"
+            :items="incomingItems"
+            label="转入"
+            required:items="items"
+            height="10px"
+            outline
+          ></v-select>
+        </v-flex>
+
+        <v-text-field
+          v-model="amount"
+          :rules="amountRules"
+          label="金额 "
+          prepend-inner-icon="fas fa-coins"
+          type="number"
+          outline
+          height="10px"
           required
-        ></v-select>
-      </v-flex>
-      <v-flex>
-        <v-select
-          v-model="incoming"
-          prepend-icon="account_circle"
-          :items="incomingItems"
-          label="转入"
-          required:items="items"
-        ></v-select>
-      </v-flex>
+        ></v-text-field>
 
-      <v-text-field
-        v-model="amount"
-        :rules="amountRules"
-        label="金额 "
-        prepend-icon="fas fa-coins"
-        type="number"
-        required
-      ></v-text-field>
-
-      <v-container fluid>
-        <v-layout row>
-          <v-flex xs12>
-            <v-btn
-              :disabled="isDisabled"
-              color="success"
-              :loading="isLoading"
-              block
-              @click="balanceTransfer()"
-            >确定转账</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
-    <v-alert
-      v-model="hasAlert"
-      :value="true"
-      type="info"
-      icon="warning"
-      outline
-      dismissible
-    >{{alertMessage}}</v-alert>
-  </v-card>
+        <v-container fluid>
+          <v-layout row>
+            <v-flex xs12>
+              <v-btn
+                :disabled="isDisabled"
+                color="success"
+                :loading="isLoading"
+                block
+                @click="balanceTransfer()"
+              >确定转账</v-btn>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-form>
+      <v-alert
+        v-model="hasAlert"
+        :value="true"
+        type="info"
+        icon="warning"
+        outline
+        dismissible
+      >{{alertMessage}}</v-alert>
+    </v-card>
+  </v-container>
 </template>
+
 <script>
 import axios from "axios";
 const qs = require("qs");
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 
 export default {
   name: "TransferBalance",
-  components: {},
+  components: { TokenExpiredDialog },
   data: () => ({
     alertMessage: "",
     // mainbalance: "",
@@ -94,9 +111,9 @@ export default {
         case "主账户":
           return 0;
         case "新锦江":
-          return 33;
+          return 32;
         case "新锦江（新版）":
-          return 31;
+          return 33;
         case "MG":
           return 35;
         default:
@@ -108,9 +125,9 @@ export default {
         case "主账户":
           return 0;
         case "新锦江":
-          return 33;
+          return 32;
         case "新锦江（新版）":
-          return 31;
+          return 33;
         case "MG":
           return 35;
         default:
@@ -124,6 +141,10 @@ export default {
     }
   },
   methods: {
+    backToHome() {
+      dialog: false;
+      this.$router.push("/usercenter");
+    },
     balanceTransfer() {
       this.isLoading = true;
       axios
@@ -183,6 +204,15 @@ export default {
     //       this.isLoading = false;
     //     });
     // }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>
+<style>
+</style>

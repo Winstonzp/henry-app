@@ -5,7 +5,7 @@
         <v-btn icon dark @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>提款记录</v-toolbar-title>
+        <v-toolbar-title>佣金发放</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->
@@ -139,7 +139,7 @@ export default {
   methods: {
     backToHome() {
       dialog: false;
-      this.$router.push("/usercenter");
+      this.$router.push("/myagent");
     },
     getRecords() {
       this.isLoading = true;

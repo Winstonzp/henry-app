@@ -73,12 +73,15 @@ import OfflineHistory from "./OfflineHistory";
 import WinLoseHistory from "./WinLoseHistory";
 import CommissionHistory from "./CommissionHistory";
 import AgentInfo from "./AgentInfo";
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "./TokenExpiredDialog";
 export default {
   components: {
     OfflineHistory,
     WinLoseHistory,
     CommissionHistory,
-    AgentInfo
+    AgentInfo,
+    TokenExpiredDialog
   },
   data() {
     return {};
@@ -101,6 +104,13 @@ export default {
     displayAgentInfo() {
       this.$router.push("/agentinfo");
     }
-  }
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>

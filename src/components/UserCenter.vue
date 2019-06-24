@@ -2,11 +2,18 @@
   <v-container class="pa-0">
     <v-layout row>
       <v-flex class="innerTab">
+        <v-layout row>
+          <v-flex>
+            <div class="profile">
+              <h3>欢迎你，{{username}}</h3>
+            </div>
+          </v-flex>
+        </v-layout>
         <v-layout>
-          <v-flex class="account_button">
-            <v-btn color="warning" large fab top>
-              <v-icon>account_circle</v-icon>
-            </v-btn>
+          <v-flex>
+            <span class="userprofile" style="font-size: 4em; color: #2196F3;">
+              <i class="fas fa-user-circle"></i>
+            </span>
           </v-flex>
         </v-layout>
         <v-card class="outerTab">
@@ -21,7 +28,14 @@
               <div class="showBalance">
                 <h3>￥0.00</h3>
               </div>
-              <div>总资产(元)</div>
+              <div>
+                总资产(元)
+                <router-link to="/querybalance">
+                  <span class="arrow">
+                    <i class="fas fa-chevron-right"></i>
+                  </span>
+                </router-link>
+              </div>
             </v-flex>
           </v-layout>
           <br>
@@ -152,30 +166,57 @@
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
-              <router-link to="/logout">
+              <ConfirmationDialog @confirm="logout">
                 <div>
                   <v-icon medium color="red">power_settings_new</v-icon>
                 </div>
                 <span style="font-size:12px">退出账户</span>
-              </router-link>
+              </ConfirmationDialog>
             </v-flex>
           </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
+    <!-- <v-layout row justify-center>
+      <v-dialog v-model="showDialog" max-width="290">
+        <v-btn flat></v-btn>
+      </v-dialog>
+    </v-layout>-->
   </v-container>
 </template>
 <script>
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import ConfirmationDialog from "./ConfirmationDialog.vue";
+import TokenExpiredDialog from "./TokenExpiredDialog";
 import axios from "axios";
 export default {
   name: "UserCenter",
-  components: {},
+  components: {
+    ConfirmationDialog,
+    TokenExpiredDialog
+  },
   data() {
     return {
-      mainbalance: ""
+      mainbalance: "",
+      username: ""
     };
   },
+  mixins: [checkTokenMixin],
   methods: {
+    logout() {
+      this.isLoading = true;
+      axios
+        .get(`${this.$store.state.apiUrl}/logout`)
+        .then(() => {
+          this.$store.dispatch("setToken", "");
+          localStorage.removeItem("token");
+          this.$store.dispatch("removeToken");
+          this.isLoading = false;
+          this.$router.push("/");
+        })
+        .catch(err => console.log(err));
+    },
+
     queryBalance(id) {
       this.isLoading = true;
       axios
@@ -198,10 +239,31 @@ export default {
             }
           }
         });
+    },
+    getUserInfo() {
+      axios
+        .get(`${this.$store.state.apiUrl}/account/getUserInfo`, {
+          headers: {
+            "X-Auth-Token": this.$store.state.token
+          }
+        })
+        .then(res => {
+          this.$store.dispatch("setUserInfo", res.data.result);
+
+          (this.username = res.data.result.username), console.log(res);
+        })
+        .catch(err => console.log(err));
     }
   },
   created() {
     this.queryBalance(0);
+    this.getUserInfo();
+  },
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
   }
 };
 </script>
@@ -209,15 +271,17 @@ export default {
 <style>
 .innerTab {
   background-color: #cda469;
-  height: 200px;
+  height: 240px;
 }
 .outerTab {
-  margin: 17px 20px;
-  height: 200px;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 190px;
   border-radius: 10px;
 }
 .outerTab1 {
-  margin: 100px 20px;
+  margin: 90px 20px;
   padding-bottom: 20px;
   border-radius: 10px;
 }
@@ -227,7 +291,16 @@ export default {
 .totalBalance {
   padding-top: 50px;
 }
-.account_button {
-  margin-left: 145px;
+
+.profile {
+  padding-left: 120px;
+  padding-top: 30px;
+  color: #f8f8f8;
+}
+.userprofile {
+  padding-left: 160px;
+}
+.arrow {
+  margin-left: 20px;
 }
 </style>

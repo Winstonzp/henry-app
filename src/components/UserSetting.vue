@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-toolbar dark color="#EFB33A">
         <v-btn icon dark @click="backToHome">
-          <v-icon>close</v-icon>
+          <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-toolbar-title>用户信息</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -21,6 +21,7 @@
                 single-line
                 solo
                 required
+                :disabled="$store.state.userInfo.real_name != null"
               ></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 md4>
@@ -32,10 +33,12 @@
                 single-line
                 solo
                 required
+                :disabled="$store.state.userInfo.mobile != null"
               ></v-text-field>
             </v-flex>
             <v-flex xs12 sm6 md4>
               <v-text-field
+                :disabled="$store.state.userInfo.email != null"
                 v-model="email"
                 prepend-inner-icon="contact_mail"
                 placeholder="邮箱"
@@ -70,7 +73,26 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-btn round color="red" block @click="updateUserInfo()">下一步</v-btn>
+            <v-flex>
+              <v-btn
+                round
+                color="red"
+                :disabled="isDisabled"
+                :loading="isLoading"
+                block
+                @click="updateUserInfo()"
+              >立即提交</v-btn>
+            </v-flex>
+            <v-flex>
+              <v-alert
+                v-model="hasAlert"
+                :value="true"
+                type="success"
+                icon="warning"
+                solo
+                dismissible
+              >{{alertMessage}}</v-alert>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card>
@@ -85,12 +107,18 @@
 </style>
 
 <script>
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 import axios from "axios";
 import { bus } from "@/main";
 const qs = require("qs");
 export default {
+  components: {
+    TokenExpiredDialog
+  },
   data() {
     return {
+      alertMessage: "",
       isLoading: false,
       alertMessage: "",
       hasAlert: false,
@@ -166,6 +194,15 @@ export default {
       // .catch(err => console.log(err));
     }
   },
+  computed: {
+    isDisabled() {
+      if (this.valid === false || this.isLoading === true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   mounted() {
     bus.$on("doneSettingUserInfo", () => {
       this.name = this.$store.state.userInfo.real_name;
@@ -175,10 +212,15 @@ export default {
       this.qq = this.$store.state.userInfo.qq;
       this.gender = this.$store.state.userInfo.gender;
     });
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
   },
 
   created() {
     this.getUserInfo();
-  }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>

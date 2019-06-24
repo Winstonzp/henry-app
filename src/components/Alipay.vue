@@ -34,11 +34,13 @@
 import axios from "axios";
 const qs = require("qs");
 import QrCode from "../views/QrCode.vue";
-
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "./TokenExpiredDialog";
 export default {
   name: "Alipay",
   components: {
-    QrCode
+    QrCode,
+    TokenExpiredDialog
   },
   data: () => ({
     errorMessage: "",
@@ -98,7 +100,13 @@ export default {
       // .catch(err => console.log(err));
     }
   },
-  created() {}
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
+    }
+  },
+  mixins: [checkTokenMixin]
 };
 </script>
 <style>
