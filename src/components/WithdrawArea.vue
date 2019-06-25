@@ -1,16 +1,16 @@
 <template>
   <v-container class="pa-0">
     <v-flex>
-      <v-toolbar dark color="warning">
-        <v-btn icon dark @click="backToHome">
+      <v-toolbar height="40px" class="firstPart">
+        <v-btn icon @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-toolbar-title>提款专区</v-toolbar-title>
       </v-toolbar>
     </v-flex>
-
+    <div class="pl-3 pt-2" style="color:#F8A406; font-size:12px">为了您账户安全，真实姓名需要与绑定银行卡姓名一致</div>
     <v-flex xs12 sm12>
-      <v-card class="py-4">
+      <v-card class="py-4 mt-3">
         <v-alert :value="$store.state.userInfo.real_name === null" type="info">
           提款金额需要真实姓名
           <v-btn block @click="redirectEditUserInfo">返回到设置真实姓名</v-btn>
@@ -30,7 +30,7 @@
           <v-flex>
             <v-select
               v-model="bankId"
-              prepend-icon="credit_card"
+              prepend-inner-icon="credit_card"
               :items="withdrawInfo.bankCardList"
               :rules="bankRules"
               item-text="cardNumber"
@@ -47,46 +47,49 @@
             :rules="amountRules"
             label="提款金额"
             type="number"
-            prepend-icon="fas fa-coins"
+            prepend-inner-icon="fas fa-coins"
             required
           ></v-text-field>
 
           <v-text-field
             v-model="password"
-            :append-icon="show ? 'visibility' : 'visibility_off'"
+            :append-inner-icon="show ? 'visibility' : 'visibility_off'"
             :rules="[rules.required]"
             :type="show ? 'text' : 'password'"
             label="取款密码"
-            prepend-icon="lock"
+            prepend-inner-icon="lock"
             @click:append="show = !show"
             required
           ></v-text-field>
-
-          <v-container fluid>
-            <v-layout row>
-              <v-flex xs12>
-                <v-btn
-                  :disabled="isDisabled"
-                  color="success"
-                  :loading="isLoading"
-                  block
-                  @click.native="withdraw"
-                >立即提交</v-btn>
-              </v-flex>
-            </v-layout>
-            <v-flex xs12>
-              <v-alert
-                v-model="hasAlert"
-                :value="true"
-                type="info"
-                icon="warning"
-                outline
-                dismissible
-              >{{alertMessage}}</v-alert>
-            </v-flex>
-          </v-container>
         </v-form>
       </v-card>
+      <div
+        class="pl-2 pt-3"
+        style="color:#F8A406; font-size:14px ;font-weight:bold"
+      >请绑定持卡人本人的银行卡并确认卡号,避免后期提款无法到账</div>
+      <v-container fluid>
+        <v-layout row>
+          <v-flex xs12>
+            <v-btn
+              :disabled="isDisabled"
+              color="success"
+              :loading="isLoading"
+              block
+              @click.native="withdraw"
+            >立即提交</v-btn>
+          </v-flex>
+        </v-layout>
+        <v-flex xs12>
+          <v-alert
+            v-model="hasAlert"
+            :value="true"
+            type="info"
+            icon="warning"
+            outline
+            dismissible
+          >{{alertMessage}}</v-alert>
+        </v-flex>
+      </v-container>
     </v-flex>
   </v-container>
 </template>

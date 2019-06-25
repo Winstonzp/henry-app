@@ -14,8 +14,8 @@
     </v-layout>
     <v-layout row>
       <v-flex>
-        <v-card height="100px" color="#121212">
-          <img src="../assets/logo1.png" class="pl-5 py-4">
+        <v-card height="100px" color="white">
+          <img src="@/assets/microgaming.png" class="pl-5 py-4">
         </v-card>
       </v-flex>
     </v-layout>
@@ -43,7 +43,13 @@
           <v-card widht="100px" height="120px" class="mx-2 my-2" color="#31392B">
             <!-- <span class="game_name">{{game.name}}</span> -->
             <v-img :src="game.img_path" widht="50px" height="80px" contain class="grey darken-4"></v-img>
-            <v-btn small round color="orange" v-if="isLogin" @click.native="goToGame(game.url)">进路游戏</v-btn>
+            <v-btn
+              small
+              round
+              color="#B87B1D"
+              v-if="isLogin"
+              @click.native="goToGame(game.url)"
+            >进路游戏</v-btn>
             <Signin v-if="!isLogin" class="d-flex">
               <v-btn color="grey">进路游戏</v-btn>
             </Signin>

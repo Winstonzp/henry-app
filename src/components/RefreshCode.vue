@@ -1,13 +1,13 @@
 <template>
   <v-container class="pa-0" fluid grid-list-md>
-    <v-toolbar dark color="warning">
-      <v-btn icon dark @click="backToHome">
+    <v-toolbar height="40px" class="firstPart">
+      <v-btn icon @click="backToHome">
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
       <v-toolbar-title>自助洗码</v-toolbar-title>
     </v-toolbar>
     <v-card-title>
-      <h4 style="color:blue">可结洗码</h4>
+      <h4 style="color:black">可结洗码</h4>
     </v-card-title>
     <v-flex xs12>
       <v-text-field :placeholder="totalXimaMoney.toString()" flat solo disabled></v-text-field>

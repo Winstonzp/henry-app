@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <v-layout>
       <v-flex xs12>
-        <v-card color="#EFB33A" height="45px">
+        <v-card class="firstPart" height="45px">
           <h3 class="headerText">分类</h3>
         </v-card>
       </v-flex>
@@ -34,22 +34,29 @@
             <v-img width="115px" height="85px" contain :src="live.image"></v-img>
           </v-flex>
           <v-flex width="115px" height="85px" class="pt-2 pr-2" xs6>
-            <span style="color:orange">{{live.title}}</span>
-            <span style="color:orange">{{live.subname}}</span>
+            <div style="color:white; font-weight:bold">{{live.title}}</div>
+            <div style="color:#E3BA36 ;font-size:12px">{{live.subname}}</div>
             <v-flex class="pt-1">
               <v-btn
                 @click="linkLivegame"
                 v-if="$store.state.token != null"
                 round
                 small
-                color="success"
+                color="#B87B1D"
               >
-                <span style="color:white">开始游戏</span>
+                <span style="color:white; font-size:12px">开始游戏</span>
               </v-btn>
             </v-flex>
             <v-flex class="pt-1">
-              <v-btn @click="linkLogin" v-if="$store.state.token == null" round small color="error">
-                <span style="color:white">开始游戏</span>
+              <v-btn
+                @click="linkLogin"
+                outline
+                v-if="$store.state.token == null"
+                round
+                small
+                color="grey"
+              >
+                <span style="color:white; font-size:13px">开始游戏</span>
               </v-btn>
             </v-flex>
           </v-flex>
@@ -157,7 +164,7 @@ export default {
           console.log(res);
           this.offers = res.data.result;
         });
-      // .catch(err => console.log(err));
+      // .catch(err => console.log(err));1
     },
     redirect(url) {
       window.open(this.redirectingUrl + url, "_blank");

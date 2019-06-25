@@ -11,22 +11,23 @@
         </v-layout>
         <v-layout>
           <v-flex>
-            <span class="userprofile" style="font-size: 4em; color: #2196F3;">
+            <!-- <span class="userprofile" style="font-size: 4em; color: #2196F3;">
               <i class="fas fa-user-circle"></i>
-            </span>
+            </span>-->
+            <img class="profile_logo" src="@/assets/logo2.png" alt>
           </v-flex>
         </v-layout>
         <v-card class="outerTab">
           <v-layout row>
             <v-flex xs6 sm6 text-xs-center>
               <div class="showBalance">
-                <h3>￥{{mainbalance}}</h3>
+                <h3>￥{{mainBalance}}</h3>
               </div>
               <div>账户余额(元)</div>
             </v-flex>
             <v-flex xs6 sm6 text-xs-center>
               <div class="showBalance">
-                <h3>￥0.00</h3>
+                <h3>{{totalBalance}}</h3>
               </div>
               <div>
                 总资产(元)
@@ -197,8 +198,11 @@ export default {
   },
   data() {
     return {
-      mainbalance: "",
-      username: ""
+      mainBalance: 0,
+      username: "",
+      xjjBalance: 0,
+      njjBalance: 0,
+      mgBalance: 0
     };
   },
   mixins: [checkTokenMixin],
@@ -217,8 +221,7 @@ export default {
         .catch(err => console.log(err));
     },
 
-    queryBalance(id) {
-      this.isLoading = true;
+    getPlatformBalance(id) {
       axios
         .get(
           `${
@@ -235,7 +238,16 @@ export default {
           console.log(res);
           if (res.data.msg === "ok") {
             if (id === 0) {
-              this.mainbalance = res.data.result.balance;
+              this.mainBalance = res.data.result.balance;
+            }
+            if (id === 32) {
+              this.xjjBalance = res.data.result.balance;
+            }
+            if (id === 33) {
+              this.mgBalance = res.data.result.balance;
+            }
+            if (id === 35) {
+              this.njjBalance = res.data.result.balance;
             }
           }
         });
@@ -256,8 +268,19 @@ export default {
     }
   },
   created() {
-    this.queryBalance(0);
+    this.getPlatformBalance(0);
+    this.getPlatformBalance(32);
+    this.getPlatformBalance(33);
+    this.getPlatformBalance(35);
     this.getUserInfo();
+  },
+  computed: {
+    totalBalance() {
+      var total;
+      total =
+        this.mainBalance + this.xjjBalance + this.njjBalance + this.mgBalance;
+      return total;
+    }
   },
   mounted() {
     if (localStorage.getItem("token") != null) {
@@ -295,12 +318,18 @@ export default {
 .profile {
   padding-left: 120px;
   padding-top: 30px;
-  color: #f8f8f8;
+  color: #666666;
 }
 .userprofile {
   padding-left: 160px;
 }
 .arrow {
   margin-left: 20px;
+}
+.profile_logo {
+  margin-left: 140px;
+  margin-top: 5px;
+  width: 80px;
+  height: 80px;
 }
 </style>

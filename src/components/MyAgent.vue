@@ -1,8 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-container class="pa-0">
     <v-layout row>
       <v-flex xs12 sm12>
-        <v-toolbar color="warning">
+        <v-toolbar height="40px" class="firstPart">
           <v-btn icon @click="backToHome">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn>
@@ -11,41 +11,43 @@
       </v-flex>
     </v-layout>
     <!--  Main Page-->
-    <v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span>下线资料</span>
-          <v-btn class="button_link" icon @click="displayOfflineInfo">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
+    <v-layout>
+      <v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart mt-2">
+            <span>下线资料</span>
+            <v-btn class="button_link" icon @click="displayOfflineInfo">
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">下线输赢</span>
+            <v-btn class="button_link" icon @click="displayLiveInfo">
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">佣金发放</span>
+            <v-btn class="button_link" icon @click="displayCommission">
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">代理制度</span>
+            <v-btn class="button_link" icon @click="displayAgentInfo">
+              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-flex>
       </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">下线输赢</span>
-          <v-btn class="button_link" icon @click="displayLiveInfo">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">佣金发放</span>
-          <v-btn class="button_link" icon @click="displayCommission">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">代理制度</span>
-          <v-btn class="button_link" icon @click="displayAgentInfo">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-flex>
-    </v-flex>
-  </v-layout>
+    </v-layout>
+  </v-container>
 </template>
 <style>
 .button_link {

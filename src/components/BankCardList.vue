@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0" fluid grid-list-md>
-    <v-toolbar dark color="warning">
-      <v-btn icon dark @click="backToHome">
+    <v-toolbar height="40px" class="firstPart">
+      <v-btn icon @click="backToHome">
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
       <v-toolbar-title>银行卡信息</v-toolbar-title>
@@ -16,7 +16,7 @@
     >
       <template v-slot:item="props">
         <v-flex xs12 sm6 md4 lg3>
-          <v-card>
+          <v-card class="firstPart mt-1">
             <v-card-title>
               <h4>银行: {{ props.item.bankName }}</h4>
             </v-card-title>

@@ -2,8 +2,8 @@
   <div>
     <v-layout row>
       <v-flex xs12 sm12>
-        <v-toolbar dark color="warning">
-          <v-btn icon dark @click="backToHome">
+        <v-toolbar height="40px" class="firstPart">
+          <v-btn icon @click="backToHome">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn>
           <v-toolbar-title>修改登陆密码</v-toolbar-title>
@@ -12,10 +12,9 @@
     </v-layout>
     <v-layout>
       <v-flex>
-        <v-card white>
+        <v-card class="firstPart mt-2">
           <v-form ref="form" v-model="valid" class="pa-2">
             <v-text-field
-              box
               v-model="oldPassword"
               :append-icon="showOld ? 'visibility' : 'visibility_off'"
               :rules="[rules.required]"
@@ -24,7 +23,6 @@
               prepend-inner-icon="lock"
               @click:append="showOld = !showOld"
               required
-              flat
             ></v-text-field>
 
             <v-text-field
@@ -35,9 +33,7 @@
               label="新登陆密码"
               prepend-inner-icon="lock"
               @click:append="show = !show"
-              box
               required
-              flat
             ></v-text-field>
 
             <v-text-field
@@ -49,8 +45,6 @@
               prepend-inner-icon="lock"
               @click:append="showConfirm = !showConfirm"
               required
-              box
-              flat
             ></v-text-field>
 
             <v-btn
@@ -65,7 +59,6 @@
             v-model="hasAlert"
             :value="true"
             icon="warning"
-            outline
             dismissible
             type="info"
           >{{alertMessage}}</v-alert>

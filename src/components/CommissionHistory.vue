@@ -1,8 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-container class="pa-0">
     <v-layout row>
-      <v-toolbar dark color="warning">
-        <v-btn icon dark @click="backToHome">
+      <v-toolbar height="40px" class="firstPart">
+        <v-btn icon @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-toolbar-title>佣金发放</v-toolbar-title>
@@ -14,9 +14,6 @@
         您的邀请码: {{code}}, 已推荐好友: {{people}} 人,
         已获得: {{cost}}佣金
       </v-alert>
-    </v-flex>
-    <v-flex xs12>
-      <v-text-field v-model="name" :counter="20" label="用户名" prepend-inner-icon="person"></v-text-field>
     </v-flex>
 
     <v-flex xs12 sm12>
@@ -33,27 +30,31 @@
         min-width="290px"
       >
         <template v-slot:activator="{ on }">
-          <v-combobox
-            class="pt-3"
-            v-model="dates"
-            background-color="white"
-            multiple
-            chips
-            flat
-            label="请选择搜索日期"
-            prepend-inner-icon="event"
-            readonly
-            v-on="on"
-            solo
-            clearable
-          ></v-combobox>
-          <v-btn
-            class="align_button"
-            @click="getRecords"
-            :disabled="isLoading"
-            :loading="isLoading"
-            color="info"
-          >搜索</v-btn>
+          <v-layout>
+            <v-flex>
+              <v-card class="firstPart">
+                <v-text-field v-model="name" :counter="20" label="用户名" prepend-inner-icon="person"></v-text-field>
+                <v-combobox
+                  class="pt-3"
+                  v-model="dates"
+                  multiple
+                  chips
+                  label="请选择搜索日期"
+                  prepend-inner-icon="event"
+                  readonly
+                  v-on="on"
+                  clearable
+                ></v-combobox>
+                <v-btn
+                  class="searchbutton"
+                  @click="getRecords"
+                  :disabled="isLoading"
+                  :loading="isLoading"
+                  color="red"
+                >搜索</v-btn>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </template>
 
         <v-date-picker v-model="dates" locale="zh-cn" multiple no-title scrollable>
@@ -107,13 +108,9 @@
     <!-- <v-flex>
       <v-alert :value="true" type="info" v-if="records.length === 0">无数据</v-alert>
     </v-flex>-->
-  </v-layout>
+  </v-container>
 </template>
 <style>
-.align_button {
-  margin-left: 80px;
-  margin-top: 0px;
-}
 </style>
 
 <script>

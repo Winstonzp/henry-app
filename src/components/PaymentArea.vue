@@ -1,8 +1,8 @@
 <template>
   <v-container class="pa-0">
     <v-layout row>
-      <v-toolbar dark color="#EFB33A">
-        <v-btn icon dark @click="backToHome">
+      <v-toolbar height="40px" class="firstPart">
+        <v-btn icon @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-toolbar-title>存款专区</v-toolbar-title>
@@ -11,7 +11,7 @@
     </v-layout>
     <v-layout row>
       <v-flex xs6 class="d-flex py-3">
-        <v-btn @click="displayNormalPay" color="#FFC236">
+        <v-btn @click="displayNormalPay" class="firstPart">
           <span style="color:blue">
             <i class="far fa-credit-card fa-2x pr-3"></i>
           </span>
@@ -19,7 +19,7 @@
         </v-btn>
       </v-flex>
       <v-flex xs6 class="d-flex py-3">
-        <v-btn @click="displayAliPay" color="#FFC236">
+        <v-btn @click="displayAliPay" class="firstPart">
           <span style="color:#0EA5DE">
             <i class="fab fa-alipay fa-2x pr-3"></i>
           </span>

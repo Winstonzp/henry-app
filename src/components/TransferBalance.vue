@@ -1,13 +1,14 @@
 <template>
   <v-container class="pa-0">
-    <v-toolbar dark color="warning">
-      <v-btn icon dark @click="backToHome">
+    <v-toolbar height="40px" class="firstPart">
+      <v-btn icon @click="backToHome">
         <v-icon>keyboard_arrow_left</v-icon>
       </v-btn>
-      <v-toolbar-title>平台互转</v-toolbar-title>
+      <v-toolbar-title>平台转账</v-toolbar-title>
     </v-toolbar>
-    <v-card class="py-4">
-      <v-form ref="form" v-model="valid" class="px-4">
+
+    <v-form ref="form" v-model="valid">
+      <v-card class="firstPart mt-2 py-2">
         <v-flex>
           <v-select
             v-model="outgoing"
@@ -15,8 +16,7 @@
             :items="outgoingItems"
             label="转出"
             required
-            height="10px"
-            outline
+            class="mx-2"
           ></v-select>
         </v-flex>
         <v-flex>
@@ -26,8 +26,7 @@
             :items="incomingItems"
             label="转入"
             required:items="items"
-            height="10px"
-            outline
+            class="mx-2"
           ></v-select>
         </v-flex>
 
@@ -37,34 +36,32 @@
           label="金额 "
           prepend-inner-icon="fas fa-coins"
           type="number"
-          outline
-          height="10px"
           required
+          class="mx-2"
         ></v-text-field>
+      </v-card>
+    </v-form>
 
-        <v-container fluid>
-          <v-layout row>
-            <v-flex xs12>
-              <v-btn
-                :disabled="isDisabled"
-                color="success"
-                :loading="isLoading"
-                block
-                @click="balanceTransfer()"
-              >确定转账</v-btn>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-form>
-      <v-alert
-        v-model="hasAlert"
-        :value="true"
-        type="info"
-        icon="warning"
-        outline
-        dismissible
-      >{{alertMessage}}</v-alert>
-    </v-card>
+    <v-container fluid>
+      <v-layout row>
+        <v-flex xs12>
+          <v-btn
+            :disabled="isDisabled"
+            color="success"
+            :loading="isLoading"
+            block
+            @click="balanceTransfer()"
+          >确定转账</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-alert
+      v-model="hasAlert"
+      :value="true"
+      type="info"
+      icon="warning"
+      dismissible
+    >{{alertMessage}}</v-alert>
   </v-container>
 </template>
 
@@ -79,10 +76,10 @@ export default {
   components: { TokenExpiredDialog },
   data: () => ({
     alertMessage: "",
-    // mainbalance: "",
-    // MG: "",
-    // xjj: "",
-    // njj: "",
+    mainBalance: "",
+    mgBalance: "",
+    xjjBalance: "",
+    njjBalance: "",
     hasAlert: false,
     outgoingItems: ["主账户", "新锦江", "MG", "新锦江（新版）"],
     incomingItems: [],
@@ -93,10 +90,6 @@ export default {
     outgoing: "",
 
     incoming: ""
-
-    // rules: {
-    //   required: value => !!value || "Required."
-    // }
   }),
   computed: {
     isDisabled() {
@@ -113,9 +106,9 @@ export default {
         case "新锦江":
           return 32;
         case "新锦江（新版）":
-          return 33;
-        case "MG":
           return 35;
+        case "MG":
+          return 33;
         default:
           return "";
       }
@@ -127,9 +120,9 @@ export default {
         case "新锦江":
           return 32;
         case "新锦江（新版）":
-          return 33;
-        case "MG":
           return 35;
+        case "MG":
+          return 33;
         default:
           return "";
       }
@@ -173,37 +166,44 @@ export default {
             this.alertMessage = res.data.msg;
           }
         });
-    }
-    // queryBalance(id) {
-    //   this.isLoading = true;
-    //   axios
-    //     .get(
-    //       `${
-    //         this.$store.state.apiUrl
-    //       }/account/getPlatformBalance?platformId=${id}`,
+    },
+    getPlatformBalance(id) {
+      axios
+        .get(
+          `${
+            this.$store.state.apiUrl
+          }/account/getPlatformBalance?platformId=${id}`,
 
-    //       {
-    //         headers: {
-    //           "X-Auth-Token": this.$store.state.token
-    //         }
-    //       }
-    //     )
-    //     .then(res => {
-    //       if (res.data.msg === "ok") {
-    //         if (id === 0) {
-    //           this.mainbalance = res.data.result.balance;
-    //         } else if (id === 31) {
-    //           this.MG = res.data.result.balance;
-    //         } else if (id === 33) {
-    //           this.xjj = res.data.result.balance;
-    //         } else if (id === 35) {
-    //           this.njj = res.data.result.balance;
-    //         }
-    //       }
-    //       console.log(this.njj);
-    //       this.isLoading = false;
-    //     });
-    // }
+          {
+            headers: {
+              "X-Auth-Token": this.$store.state.token
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.msg === "ok") {
+            if (id === 0) {
+              this.mainBalance = res.data.result.balance;
+            }
+            if (id === 32) {
+              this.xjjBalance = res.data.result.balance;
+            }
+            if (id === 33) {
+              this.mgBalance = res.data.result.balance;
+            }
+            if (id === 35) {
+              this.njjBalance = res.data.result.balance;
+            }
+          }
+        });
+    }
+  },
+  created() {
+    this.getPlatformBalance(0);
+    this.getPlatformBalance(32);
+    this.getPlatformBalance(33);
+    this.getPlatformBalance(35);
   },
   mounted() {
     if (localStorage.getItem("token") != null) {

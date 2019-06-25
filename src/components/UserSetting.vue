@@ -1,100 +1,105 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-toolbar dark color="#EFB33A">
-        <v-btn icon dark @click="backToHome">
+      <v-toolbar height="40px" class="firstPart">
+        <v-btn icon @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-toolbar-title>用户信息</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
-      <v-card color="#EFB33A" class="pt-3">
-        <v-container fluid>
-          <v-layout wrap>
-            <v-flex xs12 sm6 md4>
+      <v-card color="#FFC236" class="pt-3">
+        <v-layout>
+          <v-flex>
+            <v-card class="firstPart my-3">
               <v-text-field
                 v-model="name"
                 prepend-inner-icon="person"
                 placeholder="请填入真实用户名"
-                background-color="white"
                 label="用户名"
-                single-line
-                solo
                 required
                 :disabled="$store.state.userInfo.real_name != null"
+                class="px-3"
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
+
               <v-text-field
                 v-model="mobile"
                 prepend-inner-icon="phone_iphone"
+                label="手机号码"
                 placeholder="手机号码"
-                background-color="white"
-                single-line
-                solo
                 required
                 :disabled="$store.state.userInfo.mobile != null"
+                class="px-3"
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4>
+
               <v-text-field
                 :disabled="$store.state.userInfo.email != null"
                 v-model="email"
                 prepend-inner-icon="contact_mail"
+                label="邮箱"
                 placeholder="邮箱"
-                background-color="white"
-                single-line
-                solo
                 required
+                class="px-3"
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 d-flex>
-              <v-select :items="items" v-model="gender" prepend-inner-icon="person" label="性别" solo></v-select>
-            </v-flex>
-            <v-flex xs12>
+
+              <v-select
+                :items="items"
+                v-model="gender"
+                class="px-3"
+                prepend-inner-icon="person"
+                label="性别"
+              ></v-select>
+
               <v-text-field
                 v-model="wechat"
                 prepend-inner-icon="fab fa-weixin"
+                label="微信"
                 placeholder="微信"
-                background-color="white"
-                single-line
-                solo
                 required
+                class="px-3"
               ></v-text-field>
-            </v-flex>
-            <v-flex xs12>
+
               <v-text-field
                 v-model="qq"
                 prepend-inner-icon="fab fa-qq"
+                label="QQ 邮箱"
                 placeholder="QQ 邮箱"
-                background-color="white"
-                single-line
-                solo
                 required
+                class="px-3"
               ></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-btn
-                round
-                color="red"
-                :disabled="isDisabled"
-                :loading="isLoading"
-                block
-                @click="updateUserInfo()"
-              >立即提交</v-btn>
-            </v-flex>
-            <v-flex>
-              <v-alert
-                v-model="hasAlert"
-                :value="true"
-                type="success"
-                icon="warning"
-                solo
-                dismissible
-              >{{alertMessage}}</v-alert>
-            </v-flex>
-          </v-layout>
-        </v-container>
+              <v-text-field
+                v-model="created"
+                prepend-inner-icon="date_range"
+                label="注册时间"
+                placeholder="注册时间"
+                required
+                class="px-3"
+              ></v-text-field>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-flex>
+          <v-btn
+            block
+            color="red"
+            :disabled="isDisabled"
+            :loading="isLoading"
+            @click="updateUserInfo()"
+          >立即提交</v-btn>
+        </v-flex>
+
+        <v-layout>
+          <v-flex>
+            <v-alert
+              v-model="hasAlert"
+              :value="true"
+              type="success"
+              icon="warning"
+              solo
+              dismissible
+            >{{alertMessage}}</v-alert>
+          </v-flex>
+        </v-layout>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -133,7 +138,8 @@ export default {
       wechat: "",
       qq: "",
       gender: "",
-      items: ["男", "女"]
+      items: ["男", "女"],
+      created: ""
     };
   },
   methods: {
@@ -170,7 +176,8 @@ export default {
             gender: this.gender,
             email: this.email,
             wechat: this.wechat,
-            qq: this.qq
+            qq: this.qq,
+            regdate: this.created
             // sex: this.sex
           }),
           {
@@ -211,6 +218,7 @@ export default {
       this.wechat = this.$store.state.userInfo.wechat;
       this.qq = this.$store.state.userInfo.qq;
       this.gender = this.$store.state.userInfo.gender;
+      this.created = this.$store.state.userInfo.regdate;
     });
     if (localStorage.getItem("token") != null) {
       this.$store.dispatch("setToken", localStorage.getItem("token"));

@@ -1,11 +1,11 @@
 <template>
-  <v-layout row wrap>
+  <v-container class="pa-0">
     <v-layout row>
-      <v-toolbar dark color="warning">
-        <v-btn icon dark @click="backToHome">
+      <v-toolbar height="40px" class="firstPart">
+        <v-btn icon @click="backToHome">
           <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-toolbar-title>资金记录</v-toolbar-title>
+        <v-toolbar-title>投注记录</v-toolbar-title>
       </v-toolbar>
     </v-layout>
     <!-- Date Picker-->
@@ -23,37 +23,38 @@
         min-width="290px"
       >
         <template v-slot:activator="{ on }">
-          <v-combobox
-            class="pt-3"
-            v-model="dates"
-            background-color="white"
-            multiple
-            chips
-            flat
-            label="请选择搜索日期"
-            prepend-inner-icon="event"
-            readonly
-            v-on="on"
-            solo
-            clearable
-          ></v-combobox>
-          <v-flex xs12>
-            <v-select
-              v-model="gamePlatform"
-              :items="inputPlatforms"
-              prepend-inner-icon="videogame_asset"
-              label=" 游戏平台"
-              solo
-              flat
-            ></v-select>
-          </v-flex>
-          <v-btn
-            class="align_button"
-            @click="getRecords"
-            :disabled="isLoading"
-            :loading="isLoading"
-            color="info"
-          >搜索</v-btn>
+          <v-layout>
+            <v-flex>
+              <v-card class="firstPart">
+                <v-combobox
+                  class="pt-3"
+                  v-model="dates"
+                  multiple
+                  chips
+                  placeholder="请选择搜索日期"
+                  prepend-inner-icon="event"
+                  readonly
+                  v-on="on"
+                  clearable
+                ></v-combobox>
+                <v-flex xs12>
+                  <v-select
+                    v-model="gamePlatform"
+                    :items="inputPlatforms"
+                    prepend-inner-icon="videogame_asset"
+                    label=" 游戏平台"
+                  ></v-select>
+                </v-flex>
+                <v-btn
+                  class="searchbutton"
+                  @click="getRecords"
+                  :disabled="isLoading"
+                  :loading="isLoading"
+                  color="red"
+                >搜索</v-btn>
+              </v-card>
+            </v-flex>
+          </v-layout>
         </template>
 
         <v-date-picker v-model="dates" locale="zh-cn" multiple no-title scrollable>
@@ -101,26 +102,30 @@
         </v-flex>
       </template>
     </v-data-iterator>
-    <v-flex>
-      <v-alert
-        v-model="hasError"
-        :value="true"
-        color="error"
-        icon="warning"
-        outline
-        dismissible
-        error
-      >{{errorMessage}}</v-alert>
-    </v-flex>
-    <v-flex>
-      <v-alert :value="true" type="info" v-if="records.length === 0">无数据</v-alert>
-    </v-flex>
-  </v-layout>
+    <v-layout>
+      <v-flex>
+        <v-alert
+          v-model="hasError"
+          :value="true"
+          color="error"
+          icon="warning"
+          outline
+          dismissible
+          error
+        >{{errorMessage}}</v-alert>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-flex>
+        <v-alert :value="true" type="info" v-if="records.length === 0">无数据</v-alert>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <style>
-.align_button {
+.searchbutton {
+  width: 200px;
   margin-left: 80px;
-  margin-top: 0px;
 }
 </style>
 

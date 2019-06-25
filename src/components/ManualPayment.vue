@@ -1,5 +1,5 @@
 <template>
-  <v-card color="#EFF7E9">
+  <v-card class="firstPart">
     <div>
       <v-form ref="form" v-model="valid" class="pa-2" v-show="showForm">
         <v-alert
@@ -9,7 +9,7 @@
         <v-flex>
           <v-text-field
             v-model="selectAmount"
-            prepend-icon="fas fa-coins"
+            prepend-inner-icon="fas fa-coins"
             type="number"
             :rules="selectAmountRules"
             label="存入金额"
@@ -21,37 +21,37 @@
           v-model="username"
           :rules="usernameRules"
           label="存款人姓名"
-          prepend-icon="account_circle"
+          prepend-inner-icon="account_circle"
           required
         ></v-text-field>
         <br>
-        <span style="color:#0EA5DE">
-          <i class="fab fa-alipay fa-2x pr-3"></i>付款方式
+        <span style="color:#0EA5DE ; font-size:2em">
+          <i class="fas fa-hand-holding-usd"></i>
         </span>
-
+        付款方式
         <v-radio-group v-model="payWay" row>
           <v-layout row>
             <v-flex xs6 md6>
-              <v-radio label="网线转账" color="green" value="网线转账"></v-radio>
+              <v-radio label="网线转账" color="#0EA5DE" value="网线转账"></v-radio>
             </v-flex>
             <v-flex xs6 md6>
-              <v-radio label="支付宝转账" color="green" value="支付宝转账"></v-radio>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs6 md6>
-              <v-radio label="微信转账" color="green" value="微信转账"></v-radio>
-            </v-flex>
-            <v-flex xs6 md6>
-              <v-radio label="手机银行转账" color="green" value="手机银行转账"></v-radio>
+              <v-radio label="支付宝转账" color="#0EA5DE" value="支付宝转账"></v-radio>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs6 md6>
-              <v-radio label="ATM转账" color="green" value="ATM转账"></v-radio>
+              <v-radio label="微信转账" color="#0EA5DE" value="微信转账"></v-radio>
             </v-flex>
             <v-flex xs6 md6>
-              <v-radio label="柜台转账" color="green" value="柜台转账"></v-radio>
+              <v-radio label="手机银行转账" color="#0EA5DE" value="手机银行转账"></v-radio>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs6 md6>
+              <v-radio label="ATM转账" color="#0EA5DE" value="ATM转账"></v-radio>
+            </v-flex>
+            <v-flex xs6 md6>
+              <v-radio label="柜台转账" color="#0EA5DE" value="柜台转账"></v-radio>
             </v-flex>
           </v-layout>
         </v-radio-group>

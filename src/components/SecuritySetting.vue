@@ -1,8 +1,8 @@
 <template>
-  <v-layout row wrap>
+  <v-container class="pa-0">
     <v-layout row>
       <v-flex xs12 sm12>
-        <v-toolbar color="warning">
+        <v-toolbar height="40px" class="firstPart">
           <v-btn icon @click="backToHome">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn>
@@ -11,77 +11,79 @@
       </v-flex>
     </v-layout>
     <!--  Main Page-->
-    <v-flex v-show="showMainPage">
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span class="menu_text">提款密码</span>
-          <router-link to="/editwithdrawpassword">
-            <v-btn class="button_link" icon>
-              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-            </v-btn>
-          </router-link>
-        </v-toolbar>
+    <v-layout>
+      <v-flex v-show="showMainPage">
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart mt-2">
+            <span class="menu_text">提款密码</span>
+            <router-link to="/editwithdrawpassword">
+              <v-btn class="button_link" icon>
+                <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+              </v-btn>
+            </router-link>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">登录密码</span>
+            <router-link to="/editloginpassword">
+              <v-btn class="button_link" icon>
+                <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+              </v-btn>
+            </router-link>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">手机号码</span>
+            <router-link to="/usersetting">
+              <v-btn class="button_link" icon @click="displayPhone">
+                <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+              </v-btn>
+            </router-link>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart mt-2">
+            <span class="menu_text">银行卡</span>
+            <router-link to="/bankcardlist">
+              <v-btn class="button_link" icon @click="backToHome">
+                <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
+              </v-btn>
+            </router-link>
+          </v-toolbar>
+        </v-flex>
       </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">登录密码</span>
-          <router-link to="/editloginpassword">
-            <v-btn class="button_link" icon>
-              <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-            </v-btn>
-          </router-link>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">手机号码</span>
-          <v-btn class="button_link" icon @click="displayPhone">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span class="menu_text">银行卡</span>
-          <v-btn class="button_link" icon @click="backToHome">
-            <v-icon color="#756F72" medium>keyboard_arrow_right</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-flex>
-    </v-flex>
-    <!--  Main Page -->
 
-    <!-- edit phone number -->
-    <v-flex v-show="showPhone">
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28" class="mt-2">
-          <span class="menu_text">原密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
+      <v-flex v-show="showPhone">
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart mt-2">
+            <span class="menu_text">原密码</span>
+            <v-flex xs12 sm6 md3 class="pl-5">
+              <v-text-field flat class="addData"></v-text-field>
+            </v-flex>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">新密码</span>
+            <v-flex xs12 sm6 md3 class="pl-5">
+              <v-text-field flat class="addData"></v-text-field>
+            </v-flex>
+          </v-toolbar>
+        </v-flex>
+        <v-flex xs12 sm12>
+          <v-toolbar class="firstPart">
+            <span class="menu_text">确认密码</span>
+            <v-flex xs12 sm6 md3 class="pl-5">
+              <v-text-field flat class="addData"></v-text-field>
+            </v-flex>
+          </v-toolbar>
+        </v-flex>
+        <v-btn class="align_button success">立即设置</v-btn>
       </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">新密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-flex xs12 sm12>
-        <v-toolbar color="#FABC28">
-          <span class="menu_text">确认密码</span>
-          <v-flex xs12 sm6 md3 class="pl-5">
-            <v-text-field flat class="addData"></v-text-field>
-          </v-flex>
-        </v-toolbar>
-      </v-flex>
-      <v-btn class="align_button success">立即设置</v-btn>
-    </v-flex>
-
-    <!-- edit phone number -->
-  </v-layout>
+    </v-layout>
+  </v-container>
 </template>
 
 

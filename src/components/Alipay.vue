@@ -1,5 +1,5 @@
 <template>
-  <v-card color="#EFF7E9">
+  <v-card class="firstPart">
     <div class="pa-2">
       <v-alert
         :value="true"
@@ -9,7 +9,7 @@
         <v-flex>
           <v-text-field
             v-model="alipayAmount"
-            prepend-icon="fas fa-coins"
+            prepend-inner-icon="fas fa-coins"
             type="number"
             :rules="alipayAmountRules"
             label="存入金额"
