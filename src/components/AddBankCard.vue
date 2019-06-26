@@ -16,7 +16,7 @@
           label="开户名"
           prepend-inner-icon="account_circle"
           required
-          :disabled="$store.state.userInfo.real_name != null"
+          :disabled="$store.state.userInfo.real_name == null"
         ></v-text-field>
         <v-text-field
           v-model="bankNumber"
@@ -82,7 +82,7 @@ export default {
     valid: false,
     name: "",
     nameRules: [
-      v => !!v || "请输入开户名"
+      v => !!v || "如果没有设置过真实姓名,请到用户信息页面设置真实姓名"
       //   v => (v && v.length <= 20) || "Name must be less than 20 characters"
     ],
     bankNumber: "",
