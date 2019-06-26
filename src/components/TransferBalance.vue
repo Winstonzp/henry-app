@@ -97,39 +97,26 @@ export default {
       }
     },
     outgoingId() {
-      switch (this.outgoing) {
-        case "主账户 ":
-          return 0;
-          break;
-        case "新锦江":
-          return 32;
-          break;
-        case "新锦江（新版）":
-          return 35;
-          break;
-        case "MG":
-          return 33;
-          break;
-        default:
-          return "";
+      if (this.outgoing.includes("MG")) {
+        return 33;
+      } else if (this.outgoing.includes("新版")) {
+        return 35;
+      } else if (this.outgoing.includes("新锦江")) {
+        return 32;
+      } else if (this.outgoing.includes("主账户")) {
+        return 0;
       }
     },
+
     incomingId() {
-      switch (this.incoming) {
-        case "主账户":
-          return 0;
-          break;
-        case "新锦江":
-          return 32;
-          break;
-        case "新锦江（新版）":
-          return 35;
-          break;
-        case "MG":
-          return 33;
-          break;
-        default:
-          return "";
+      if (this.incoming.includes("MG")) {
+        return 33;
+      } else if (this.incoming.includes("新版")) {
+        return 35;
+      } else if (this.incoming.includes("新锦江")) {
+        return 32;
+      } else if (this.incoming.includes("主账户")) {
+        return 0;
       }
     }
   },
@@ -164,8 +151,8 @@ export default {
           console.log(res);
           if (res.data.msg === "ok") {
             this.hasAlert = true;
+            location.reload();
             this.alertMessage = "成功";
-            this.refreshBalance();
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;

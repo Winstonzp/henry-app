@@ -47,7 +47,7 @@
                 <div>
                   <v-icon medium color="green">fas fa-comments-dollar</v-icon>
                 </div>
-                <span style="font-size:12px">转账</span>
+                <span style="font-size:12px;color:grey">转账</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -55,7 +55,7 @@
                 <div>
                   <v-icon medium color=" red">fas fa-hand-holding-usd</v-icon>
                 </div>
-                <span style="font-size:12px">提款</span>
+                <span style="font-size:12px;color:grey">提款</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -63,7 +63,7 @@
                 <div>
                   <v-icon medium color="blue">fas fa-piggy-bank</v-icon>
                 </div>
-                <span style="font-size:12px">存款</span>
+                <span style="font-size:12px;color:grey">存款</span>
               </router-link>
             </v-flex>
           </v-layout>
@@ -79,7 +79,7 @@
                 <div>
                   <v-icon medium color="#8652EE">fas fa-users-cog</v-icon>
                 </div>
-                <span style="font-size:12px">用户信息</span>
+                <span style="font-size:12px;color:grey">用户信息</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -87,7 +87,7 @@
                 <div>
                   <v-icon medium color="blue">fas fa-file-invoice-dollar</v-icon>
                 </div>
-                <span style="font-size:12px">存款记录</span>
+                <span style="font-size:12px;color:grey">存款记录</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -95,7 +95,7 @@
                 <div>
                   <v-icon medium color="#8BEE22">fas fa-file-signature</v-icon>
                 </div>
-                <span style="font-size:12px">提款记录</span>
+                <span style="font-size:12px;color:grey">提款记录</span>
               </router-link>
             </v-flex>
           </v-layout>
@@ -105,7 +105,7 @@
                 <div>
                   <v-icon medium color="#EA625B">fas fa-file-contract</v-icon>
                 </div>
-                <span style="font-size:12px">转账记录</span>
+                <span style="font-size:12px;color:grey">转账记录</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -113,7 +113,7 @@
                 <div>
                   <v-icon medium color="#1DE3B0">fas fa-file-alt</v-icon>
                 </div>
-                <span style="font-size:12px">投注记录</span>
+                <span style="font-size:12px;color:grey">投注记录</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -121,7 +121,7 @@
                 <div>
                   <v-icon medium color="blue">fas fa-file-signature</v-icon>
                 </div>
-                <span medium style="font-size:12px">资金记录</span>
+                <span medium style="font-size:12px;color:grey">资金记录</span>
               </router-link>
             </v-flex>
           </v-layout>
@@ -131,7 +131,7 @@
                 <div>
                   <v-icon medium color="#4BEA54">fas fa-user-shield</v-icon>
                 </div>
-                <span style="font-size:12px">安全设置</span>
+                <span style="font-size:12px;color:grey">安全设置</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -139,14 +139,14 @@
                 <div>
                   <v-icon medium color="red">refresh</v-icon>
                 </div>
-                <span style="font-size:12px">自助洗码</span>
+                <span style="font-size:12px;color:grey">自助洗码</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
               <div>
                 <v-icon medium color="#571CE8">fas fa-gift</v-icon>
               </div>
-              <span style="font-size:12px">优惠活动</span>
+              <span style="font-size:12px;color:grey">优惠活动</span>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -155,7 +155,7 @@
                 <div>
                   <v-icon medium color="blue">credit_card</v-icon>
                 </div>
-                <span style="font-size:12px">银行卡</span>
+                <span style="font-size:12px;color:grey">银行卡</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -163,7 +163,7 @@
                 <div>
                   <v-icon medium color="blue">fas fa-users</v-icon>
                 </div>
-                <span style="font-size:12px">我的代理</span>
+                <span style="font-size:12px;color:grey">我的代理</span>
               </router-link>
             </v-flex>
             <v-flex xs4 sm4 text-xs-center pt-4>
@@ -171,7 +171,7 @@
                 <div>
                   <v-icon medium color="red">power_settings_new</v-icon>
                 </div>
-                <span style="font-size:12px">退出账户</span>
+                <span style="font-size:12px;color:grey">退出账户</span>
               </ConfirmationDialog>
             </v-flex>
           </v-layout>

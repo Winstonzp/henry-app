@@ -14,7 +14,6 @@
           :duration="20"
         >1,尊敬的客户：您好，大额支付建议您使用银行卡入款，笔笔可享最高1.5%优惠！详情可咨询在线客服哦. 2,特别通告：【电子】【棋牌】【捕鱼】全新返水升级，全网最劲爆的游戏平台尽在澳门威尼斯人。</marquee-text>
       </v-card>
-
       <v-card class="pt-2" color="#D68508">
         <v-card height="250" class="firstPart" flat>
           <v-layout row>
