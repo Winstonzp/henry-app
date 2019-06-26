@@ -76,12 +76,9 @@ export default {
   components: { TokenExpiredDialog },
   data: () => ({
     alertMessage: "",
-    mainBalance: "",
-    mgBalance: "",
-    xjjBalance: "",
-    njjBalance: "",
     hasAlert: false,
-    outgoingItems: ["主账户", "新锦江", "MG", "新锦江（新版）"],
+    outgoingItems: [],
+
     incomingItems: [],
     isLoading: false,
     valid: false,
@@ -101,14 +98,18 @@ export default {
     },
     outgoingId() {
       switch (this.outgoing) {
-        case "主账户":
+        case "主账户 ":
           return 0;
+          break;
         case "新锦江":
           return 32;
+          break;
         case "新锦江（新版）":
           return 35;
+          break;
         case "MG":
           return 33;
+          break;
         default:
           return "";
       }
@@ -117,12 +118,16 @@ export default {
       switch (this.incoming) {
         case "主账户":
           return 0;
+          break;
         case "新锦江":
           return 32;
+          break;
         case "新锦江（新版）":
           return 35;
+          break;
         case "MG":
           return 33;
+          break;
         default:
           return "";
       }
@@ -160,7 +165,7 @@ export default {
           if (res.data.msg === "ok") {
             this.hasAlert = true;
             this.alertMessage = "成功";
-            // console.log(res.data);
+            this.refreshBalance();
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
@@ -182,28 +187,20 @@ export default {
         )
         .then(res => {
           console.log(res);
-          if (res.data.msg === "ok") {
-            if (id === 0) {
-              this.mainBalance = res.data.result.balance;
-            }
-            if (id === 32) {
-              this.xjjBalance = res.data.result.balance;
-            }
-            if (id === 33) {
-              this.mgBalance = res.data.result.balance;
-            }
-            if (id === 35) {
-              this.njjBalance = res.data.result.balance;
-            }
-          }
+          this.outgoingItems.push(
+            `${res.data.result.title} (${res.data.result.balance})¥`
+          );
         });
+    },
+    refreshBalance() {
+      this.getPlatformBalance(0);
+      this.getPlatformBalance(32);
+      this.getPlatformBalance(33);
+      this.getPlatformBalance(35);
     }
   },
   created() {
-    this.getPlatformBalance(0);
-    this.getPlatformBalance(32);
-    this.getPlatformBalance(33);
-    this.getPlatformBalance(35);
+    this.refreshBalance();
   },
   mounted() {
     if (localStorage.getItem("token") != null) {

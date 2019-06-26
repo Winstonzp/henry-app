@@ -5,7 +5,7 @@
         <v-layout row>
           <v-flex>
             <div class="profile">
-              <h3>欢迎你，{{username}}</h3>
+              <h3>欢迎你,{{username}}</h3>
             </div>
           </v-flex>
         </v-layout>

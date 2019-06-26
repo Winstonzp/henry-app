@@ -87,6 +87,18 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-layout row>
+      <v-flex xs6 sm6 md6>
+        <router-link to="/paymentarea">
+          <v-btn class="ml-5 mt-3" color="info">存款</v-btn>
+        </router-link>
+      </v-flex>
+      <v-flex xs6 sm6 md6>
+        <router-link to="/withdrawarea">
+          <v-btn class="ml-3 mt-3" color="info">提款</v-btn>
+        </router-link>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 <style>
@@ -113,8 +125,13 @@
 }
 </style>
 <script>
+import { checkTokenMixin } from "../mixins/checkTokenMixin.js";
+import TokenExpiredDialog from "../components/TokenExpiredDialog";
 import axios from "axios";
 export default {
+  components: {
+    TokenExpiredDialog
+  },
   data() {
     return {
       mainBalance: 0,
@@ -172,6 +189,13 @@ export default {
       total =
         this.mainBalance + this.xjjBalance + this.njjBalance + this.mgBalance;
       return total;
+    }
+  },
+  mixins: [checkTokenMixin],
+  mounted() {
+    if (localStorage.getItem("token") != null) {
+      this.$store.dispatch("setToken", localStorage.getItem("token"));
+      this.checkToken(localStorage.getItem("token"));
     }
   }
 };
