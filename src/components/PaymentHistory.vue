@@ -165,7 +165,6 @@ export default {
             this.hasError = true;
             this.errorMessage = res.data.msg;
           }
-          console.log(res);
         });
       // .catch(err => console.log(err));
     }

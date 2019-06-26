@@ -161,7 +161,6 @@ export default {
           (this.name = res.data.result.real_name),
             (this.mobile = res.data.result.mobile),
             (this.email = res.data.result.email);
-          console.log(res);
         })
         .catch(err => console.log(err));
     },

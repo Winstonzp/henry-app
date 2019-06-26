@@ -169,7 +169,6 @@ export default {
         )
         .then(res => {
           this.isLoading = false;
-          console.log(res.data);
 
           if (res.data.code == 0) {
             this.$store.dispatch("setToken", res.data.result.token);

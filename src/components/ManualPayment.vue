@@ -182,14 +182,11 @@ export default {
             this.dataInfo[4].result = res.data.result.name;
             this.dataInfo[5].result = res.data.result.bank_address;
             this.orderId = res.data.result.id;
-            // console.log(res.data);
-            // this.getUserInfo();
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
           }
         });
-      // .catch(err => console.log(err));
     }
   },
   mounted() {

@@ -116,7 +116,6 @@ export default {
         })
         .then(res => {
           this.isLoading = false;
-          console.log(res.data);
           this.refreshcode = Array.from(res.data.result);
         });
       // .catch(err => console.log(err));
@@ -145,7 +144,6 @@ export default {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
           }
-          console.log(res);
         });
       // .catch(err => console.log(err));
     }

@@ -159,7 +159,6 @@ export default {
           }
         )
         .then(res => {
-          console.log(res);
           if (res.data.msg === "ok") {
             if (id === 0) {
               this.mainBalance = res.data.result.balance;

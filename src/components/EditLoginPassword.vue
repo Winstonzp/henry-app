@@ -141,17 +141,13 @@ export default {
             this.hasAlert = true;
             this.alertMessage = "更改密码成功";
             this.$store.dispatch("setToken", res.data.result.token);
-            // console.log(res.data.result.token)
           } else {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
-            // console.log(res.data)
           }
           this.isLoading = false;
-          //   this.$forceUpdate();
         });
-      // .catch(err => console.log(err));
-      // .then(()=>console.log(this.$store.state.token));
+
       this.oldPassword = "";
       this.password = "";
       this.confirmPassword = "";

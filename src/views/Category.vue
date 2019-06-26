@@ -161,7 +161,6 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
           this.offers = res.data.result;
         });
       // .catch(err => console.log(err));1

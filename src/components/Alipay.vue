@@ -89,9 +89,6 @@ export default {
           }
         )
         .then(res => {
-          // console.log(res.data);
-          // eslint-disable-next-line
-          // .replace('<script>document.myform.submit()<\/script>','')
           this.$store.dispatch("setQrHtml", res.data.result.html);
           this.isLoading = false;
           this.showQRcode = true;

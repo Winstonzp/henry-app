@@ -148,7 +148,7 @@ export default {
         )
         .then(res => {
           this.isLoading = false;
-          console.log(res);
+
           if (res.data.msg === "ok") {
             this.hasAlert = true;
             location.reload();
@@ -173,7 +173,6 @@ export default {
           }
         )
         .then(res => {
-          console.log(res);
           this.outgoingItems.push(
             `${res.data.result.title} (${res.data.result.balance})¥`
           );

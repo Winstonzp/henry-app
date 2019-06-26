@@ -180,7 +180,6 @@ export default {
         .then(res => {
           this.withdrawInfo = res.data.result;
           this.isLoading = false;
-          console.log(res);
         });
       // .catch(err => console.log(err));
     },
@@ -218,7 +217,6 @@ export default {
             this.hasAlert = true;
             this.alertMessage = res.data.msg;
           }
-          console.log(res.data);
         });
       // .catch(err => console.log(err));
     },

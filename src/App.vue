@@ -36,10 +36,8 @@ export default {
           }
         })
         .then(res => {
-          // console.log(res.data)
           this.$store.dispatch("setDepositeInfo", res.data.result);
         });
-      // .catch(err => console.log(err));
     }
   },
   computed: {
@@ -52,13 +50,7 @@ export default {
       }
     }
   },
-  // watch: {
-  //   isLogin: function(toGet) {
-  //     if (toGet) {
-  //       this.getDepositeInfo();
-  //     }
-  //   }
-  // },
+
   created() {
     if (localStorage.getItem("token") != null) {
       this.$store.dispatch("setToken", localStorage.getItem("token"));

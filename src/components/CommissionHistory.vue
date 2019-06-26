@@ -163,7 +163,6 @@ export default {
             this.hasError = true;
             this.errorMessage = res.data.msg;
           }
-          console.log(res);
         });
       // .catch(err => console.log(err));
     },
@@ -178,7 +177,6 @@ export default {
           (this.code = res.data.result.invitationCode),
             (this.people = res.data.result.childNum),
             (this.cost = res.data.result.rebateSum);
-          console.log(res);
         });
     }
   },

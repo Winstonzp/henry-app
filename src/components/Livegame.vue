@@ -110,18 +110,13 @@ export default {
         .then(res => {
           if (gamePlatformId === "XJJ") {
             this.urlXJJ = res.data.result.game_url;
-            // console.log(res.data);
-            // console.log(this.urlXJJ)
           }
           if (gamePlatformId === "NJJ") {
             this.urlNJJ = res.data.result.game_url;
-            // console.log(res.data)
           }
           if (gamePlatformId === "MG") {
-            // console.log(res.data);
           }
         });
-      // .catch(err => console.log(err));
     }
   },
   mounted() {
